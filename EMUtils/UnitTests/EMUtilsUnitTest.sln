@@ -13,6 +13,10 @@ Global
 		{6A56B833-5615-460A-B988-5DAF8A75107C}.Debug|Win32.Build.0 = Debug|Win32
 		{6A56B833-5615-460A-B988-5DAF8A75107C}.Release|Win32.ActiveCfg = Release|Win32
 		{6A56B833-5615-460A-B988-5DAF8A75107C}.Release|Win32.Build.0 = Release|Win32
+		{A9FA89CB-99E6-49E9-A48F-9F6F894110A6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A9FA89CB-99E6-49E9-A48F-9F6F894110A6}.Debug|Win32.Build.0 = Debug|Win32
+		{A9FA89CB-99E6-49E9-A48F-9F6F894110A6}.Release|Win32.ActiveCfg = Release|Win32
+		{A9FA89CB-99E6-49E9-A48F-9F6F894110A6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
