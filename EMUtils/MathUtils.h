@@ -74,7 +74,7 @@ std::vector<T> MathUtils::GetDivisors(const T& number)
 		}
 	}
 	sort(divisors.begin(), divisors.end());
-	return divisors;
+	return std::move(divisors);
 }
 
 template <typename T>
@@ -140,7 +140,7 @@ std::vector<bool> MathUtils::GetPrimesBoolArrayToN(const T& value)
 		}
 	}
 
-	return move(primeArray);
+	return std::move(primeArray);
 }
 
 template <typename T> 
