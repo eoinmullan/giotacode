@@ -11,19 +11,19 @@ typedef unsigned int emuint;
 
 namespace MathUtils
 {
-	template <typename T> static std::string ToAlternateBaseRepresentation(const T& value, const T& base);
-	template <typename T> static std::vector<T> GetDivisors(const T& number);
-	template <typename T> static emu64 GetSumOfDivisors(const T& number);
-	template <typename T> static emu64 Factorial(const T& x);
-	template <typename T> static T PowerOf(const T& base, const T& power);
-	template <typename T> static std::vector<bool> GetPrimesBoolArrayToN(const T& n);
-	template <typename T> static std::vector<T> GetPrimesToN(const T& n);
+	template <typename T> std::string ToAlternateBaseRepresentation(const T& value, const T& base);
+	template <typename T> std::vector<T> GetDivisors(const T& number);
+	template <typename T> emu64 GetSumOfDivisors(const T& number);
+	template <typename T> emu64 Factorial(const T& x);
+	template <typename T> T PowerOf(const T& base, const T& power);
+	template <typename T> std::vector<bool> GetPrimesBoolArrayToN(const T& n);
+	template <typename T> std::vector<T> GetPrimesToN(const T& n);
 	
-	template <typename T> static std::string uncheckedToAlternateBaseRepresentation(const T& value, const T& base);
+	template <typename T> std::string uncheckedToAlternateBaseRepresentation(const T& value, const T& base);
 };
 
 template <typename T> 
-static std::string MathUtils::ToAlternateBaseRepresentation(const T& value, const T& base)
+std::string MathUtils::ToAlternateBaseRepresentation(const T& value, const T& base)
 {
 	if (base < 0) {
 		throw std::out_of_range("Cannot convert number to a negative base representation");
@@ -36,7 +36,7 @@ static std::string MathUtils::ToAlternateBaseRepresentation(const T& value, cons
 }
 
 template <typename T> 
-static std::string MathUtils::uncheckedToAlternateBaseRepresentation(const T& value, const T& base)
+std::string MathUtils::uncheckedToAlternateBaseRepresentation(const T& value, const T& base)
 {
 	stringstream ss;
 
@@ -55,7 +55,7 @@ static std::string MathUtils::uncheckedToAlternateBaseRepresentation(const T& va
 }
 
 template <typename T>
-static std::vector<T> MathUtils::GetDivisors(const T& number)
+std::vector<T> MathUtils::GetDivisors(const T& number)
 {
 	vector<T> divisors;
 	
@@ -78,14 +78,14 @@ static std::vector<T> MathUtils::GetDivisors(const T& number)
 }
 
 template <typename T>
-static emu64 MathUtils::GetSumOfDivisors(const T& number)
+emu64 MathUtils::GetSumOfDivisors(const T& number)
 {
 	vector<T> temp = GetDivisors(number);
 	return std::accumulate(temp.begin(), temp.end(), 0);
 }
 
 template <typename T>
-static emu64 MathUtils::Factorial(const T& x)
+emu64 MathUtils::Factorial(const T& x)
 {
 	if (x < 0) {
 		throw std::out_of_range("Cannot calculate factorial of negative number");
@@ -98,7 +98,7 @@ static emu64 MathUtils::Factorial(const T& x)
 }
 
 template <typename T>
-static T MathUtils::PowerOf(const T& base, const T& exponent)
+T MathUtils::PowerOf(const T& base, const T& exponent)
 {
 	T result;
 
@@ -116,7 +116,7 @@ static T MathUtils::PowerOf(const T& base, const T& exponent)
 }
 
 template <typename T>
-static std::vector<bool> MathUtils::GetPrimesBoolArrayToN(const T& value)
+std::vector<bool> MathUtils::GetPrimesBoolArrayToN(const T& value)
 {
 	if (value < 0) {
 		throw std::out_of_range("Cannot get primes between zero and a negative number");
@@ -144,7 +144,7 @@ static std::vector<bool> MathUtils::GetPrimesBoolArrayToN(const T& value)
 }
 
 template <typename T> 
-static std::vector<T> MathUtils::GetPrimesToN(const T& n)
+std::vector<T> MathUtils::GetPrimesToN(const T& n)
 {
 	auto nums = GetPrimesBoolArrayToN(n);
 	std::vector<T> primes;
