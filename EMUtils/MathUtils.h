@@ -9,9 +9,8 @@
 typedef unsigned long long emu64;
 typedef unsigned int emuint;
 
-class MathUtils
+namespace MathUtils
 {
-public:
 	template <typename T> static std::string ToAlternateBaseRepresentation(const T& value, const T& base);
 	template <typename T> static std::vector<T> GetDivisors(const T& number);
 	template <typename T> static emu64 GetSumOfDivisors(const T& number);
@@ -19,8 +18,7 @@ public:
 	template <typename T> static T PowerOf(const T& base, const T& power);
 	template <typename T> static std::vector<bool> GetPrimesBoolArrayToN(const T& n);
 	template <typename T> static std::vector<T> GetPrimesToN(const T& n);
-
-private:
+	
 	template <typename T> static std::string uncheckedToAlternateBaseRepresentation(const T& value, const T& base);
 };
 
