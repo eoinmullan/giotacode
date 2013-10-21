@@ -105,6 +105,9 @@ T MathUtils::PowerOf(const T& base, const T& exponent)
 	if (0 == exponent) {
 		result = 1;
 	}
+	else if (exponent < 0) {
+		throw std::out_of_range("This function cannot calculate with negative exponents");
+	}
 	else {
 		result = base;
 		for (T i=1; i<exponent; i++) {

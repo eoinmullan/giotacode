@@ -193,6 +193,11 @@ namespace MathUtilsUnitTest
 			Assert::AreEqual(static_cast<unsigned long>(81), MathUtils::PowerOf(static_cast<unsigned long>(3), static_cast<unsigned long>(4)));
 			Assert::AreEqual(static_cast<unsigned int>(81), MathUtils::PowerOf(static_cast<unsigned int>(3), static_cast<unsigned int>(4)));
 		}
+
+		TEST_METHOD(shouldThrowOutOfRangeForNegativeExponents)
+		{
+			Assert::ExpectException<std::out_of_range>( [] { MathUtils::PowerOf(2, -1); } );
+		}
 	};
 	
 	TEST_CLASS(TestGetPrimesBoolArrayToN)
