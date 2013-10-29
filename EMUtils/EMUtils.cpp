@@ -20,7 +20,7 @@ void EMUtils::StartTimer()
 
 emu64 EMUtils::GetTimeMs()
 {
-    LARGE_INTEGER li;
+	LARGE_INTEGER li;
 	if (!QueryPerformanceCounter(&li)) {
 		throw std::string("Failed to query performance counter");
 	}
@@ -29,7 +29,7 @@ emu64 EMUtils::GetTimeMs()
 
 double EMUtils::GetTimeS()
 {
-    LARGE_INTEGER li;
+	LARGE_INTEGER li;
 	if (!QueryPerformanceCounter(&li)) {
 		throw std::string("Failed to query performance counter");
 	}
