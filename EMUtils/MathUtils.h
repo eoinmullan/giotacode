@@ -85,16 +85,20 @@ emu64 MathUtils::GetSumOfDivisors(const T& number)
 }
 
 template <typename T>
-emu64 MathUtils::Factorial(const T& x)
+emu64 MathUtils::Factorial(const T& value)
 {
-	if (x < 0) {
+	if (value < 0) {
 		throw std::out_of_range("Cannot calculate factorial of negative number");
 	}
-	else if (x > 20) {
+	else if (value > 20) {
 		throw std::out_of_range("Result of factorial cannot be represented with 64 bits");
 	}
-
-	return (x <= 1 ? 1 : x * Factorial(x - 1));
+	
+	emu64 returnValue = 1;
+	for (emu64 i = 2; i <= value; i++) {
+		returnValue *= i;
+	}
+	return returnValue;
 }
 
 template <typename T>
