@@ -12,12 +12,8 @@ public:
 	template <typename T>embiguint(T num);
 	~embiguint(void) {}
 	
-	friend bool operator == (const embiguint& lhs, const embiguint& rhs);
-	friend bool operator != (const embiguint& lhs, const embiguint& rhs) { return !operator==(lhs, rhs); }
-	friend bool operator < (const embiguint& lhs, const embiguint& rhs);
-	friend bool operator > (const embiguint& lhs, const embiguint& rhs) { return operator<(rhs, lhs); }
-	friend bool operator <= (const embiguint& lhs, const embiguint& rhs) { return !operator>(lhs, rhs); }
-	friend bool operator >= (const embiguint& lhs, const embiguint& rhs) { return !operator<(lhs, rhs); }
+	bool areEqual (const embiguint& rhs) const;
+	bool isLessThan (const embiguint& rhs) const;
 	embiguint& operator+= (const embiguint& rhs);
 	template <typename T> embiguint& operator+= (const T& num);
 
@@ -32,6 +28,12 @@ private:
 	emuint digitMask;
 };
 
+bool operator== (const embiguint& lhs, const embiguint& rhs) { return lhs.areEqual(rhs); }
+bool operator!= (const embiguint& lhs, const embiguint& rhs) { return !lhs.areEqual(rhs); }
+bool operator< (const embiguint& lhs, const embiguint& rhs) { return lhs.isLessThan(rhs); }
+bool operator> (const embiguint& lhs, const embiguint& rhs) { return rhs.isLessThan(lhs); }
+bool operator<= (const embiguint& lhs, const embiguint& rhs) { return !rhs.isLessThan(lhs); }
+bool operator>= (const embiguint& lhs, const embiguint& rhs) { return !lhs.isLessThan(rhs); }
 const embiguint operator+ (const embiguint& lhs, const embiguint& rhs);
 
 template <typename T>embiguint::embiguint(T num)
@@ -48,16 +50,16 @@ embiguint::embiguint()
 {
 }
 
-bool operator == (const embiguint& lhs, const embiguint& rhs)
+bool embiguint::areEqual (const embiguint& rhs) const
 {
 	bool areEqual = true;
 
-	if (lhs.number.size() != rhs.number.size()) {
+	if (number.size() != rhs.number.size()) {
 		areEqual = false;
 	}
 	else {
-		for (emuint i=0; i<lhs.number.size() && areEqual; i++) {
-			if (lhs.number[i] != rhs.number[i]) {
+		for (emuint i=0; i<number.size() && areEqual; i++) {
+			if (number[i] != rhs.number[i]) {
 				areEqual = false;
 			}
 		}
@@ -66,21 +68,21 @@ bool operator == (const embiguint& lhs, const embiguint& rhs)
 	return areEqual;
 }
 
-bool operator < (const embiguint& lhs, const embiguint& rhs)
+bool embiguint::isLessThan (const embiguint& rhs) const
 {
 	bool lhsLessThanRhs = false;
 
-	if (lhs.number.size() < rhs.number.size()) {
+	if (number.size() < rhs.number.size()) {
 		lhsLessThanRhs = true;
 	}
-	else if (lhs.number.size() == rhs.number.size()) {
-		int i = lhs.number.size()-1;
+	else if (number.size() == rhs.number.size()) {
+		int i = number.size()-1;
 		while (i >= 0 && !lhsLessThanRhs) {
-			if (lhs.number[i] == rhs.number[i]) {
+			if (number[i] == rhs.number[i]) {
 				i--;
 			}
 			else {
-				if (lhs.number[i] < rhs.number[i]) {
+				if (number[i] < rhs.number[i]) {
 					lhsLessThanRhs = true;
 				}
 				break;
