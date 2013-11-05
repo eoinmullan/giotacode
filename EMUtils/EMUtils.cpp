@@ -18,7 +18,7 @@ void EMUtils::StartTimer()
 	cpuTimerStart = li.QuadPart;
 }
 
-emu64 EMUtils::GetTimeMs()
+emu64 EMUtils::GetLapTimeMs()
 {
 	LARGE_INTEGER li;
 	if (!QueryPerformanceCounter(&li)) {
@@ -27,7 +27,7 @@ emu64 EMUtils::GetTimeMs()
 	return ((li.QuadPart - cpuTimerStart)*1000)/cpuFrequency;
 }
 
-double EMUtils::GetTimeS()
+double EMUtils::GetLapTimeS()
 {
 	LARGE_INTEGER li;
 	if (!QueryPerformanceCounter(&li)) {

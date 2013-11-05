@@ -6,8 +6,8 @@ class EMUtils
 {
 public:
 	static void StartTimer();
-	static emu64 GetTimeMs();
-	static double GetTimeS();
+	static emu64 GetLapTimeMs();
+	static double GetLapTimeS();
 
 private:
 	static emu64 cpuTimerStart;
