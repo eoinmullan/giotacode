@@ -18,7 +18,7 @@ public:
 	template <typename T> embiguint& operator+= (const T& num);
 
 	std::string Get() const;
-	emuint GetNoDigits();
+	emuint GetNoDigits() const;
 
 private:
 	void fixDigits();
@@ -146,7 +146,7 @@ std::string embiguint::Get() const
 	return retString.str();
 }
 
-emuint embiguint::GetNoDigits()
+emuint embiguint::GetNoDigits() const
 {
 	return (number.size()-1)*noDigits + std::to_string(number[number.size()-1]).size();
 }
