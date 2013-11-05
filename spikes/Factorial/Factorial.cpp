@@ -37,7 +37,7 @@ int _tmain(int argc, wchar_t* argv[])
 		}
 	}
 	cout << "Total: " << total << endl;
-	cout << "Total time: " << EMUtils::GetTimeMs() << endl;
+	cout << "Total time: " << EMUtils::GetLapTimeMs() << endl;
 
 	system("pause");
 	return 0;
