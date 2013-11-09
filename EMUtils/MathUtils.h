@@ -18,6 +18,7 @@ namespace MathUtils
 	template <typename T> T PowerOf(const T& base, const T& power);
 	template <typename T> std::vector<bool> GetPrimesBoolArrayToN(const T& n);
 	template <typename T> std::vector<T> GetPrimesToN(const T& n);
+	template <typename T> bool AreClose(const T& first, const T& second, const T& tolerance);
 	
 	template <typename T> std::string uncheckedToAlternateBaseRepresentation(const T& value, const T& base);
 };
@@ -163,4 +164,22 @@ std::vector<T> MathUtils::GetPrimesToN(const T& n)
 	}
 
 	return std::move(primes);
+}
+
+template <typename T>
+bool MathUtils::AreClose(const T& first, const T& second, const T& tolerance)
+{
+	return abs(static_cast< std::make_signed<T>::type >(first-second)) <= tolerance;
+}
+
+template <>
+bool MathUtils::AreClose(const double& first, const double& second, const double& tolerance)
+{
+	return fabs(first-second) <= tolerance;
+}
+
+template <>
+bool MathUtils::AreClose(const float& first, const float& second, const float& tolerance)
+{
+	return fabs(first-second) <= tolerance;
 }

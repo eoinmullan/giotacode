@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <stdexcept>
+#include <limits>
 #include "MathUtils.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -356,6 +357,207 @@ namespace MathUtilsUnitTest
 		{
 			Assert::ExpectException<std::out_of_range>([] { MathUtils::ToAlternateBaseRepresentation(999, 17);} );
 			Assert::ExpectException<std::out_of_range>([] { MathUtils::ToAlternateBaseRepresentation(999, 99);} );
+		}
+	};
+	
+	TEST_CLASS(TestIsClose)
+	{
+	public:
+		TEST_METHOD(shouldDetectCloseIntsWhenTheyAreEqual)
+		{
+			Assert::IsTrue(MathUtils::AreClose(0, 0, 0));
+			Assert::IsTrue(MathUtils::AreClose(5, 5, 0));
+			Assert::IsTrue(MathUtils::AreClose(-5, -5, 0));
+		}
+		
+		TEST_METHOD(shouldNotDetectIntsAsCloseWhenTheyAreNotEqualAndToleranceIsZero)
+		{
+			Assert::IsFalse(MathUtils::AreClose(1, 0, 0));
+			Assert::IsFalse(MathUtils::AreClose(0, 1, 0));
+			Assert::IsFalse(MathUtils::AreClose(0, -1, 0));
+			Assert::IsFalse(MathUtils::AreClose(-1, 0, 0));
+
+			Assert::IsFalse(MathUtils::AreClose(50, 51, 0));
+			Assert::IsFalse(MathUtils::AreClose(99, 100, 0));
+			Assert::IsFalse(MathUtils::AreClose(5, -5, 0));
+		}
+
+		TEST_METHOD(shouldDetectCloseIntsWhenWithinTolerance)
+		{
+			Assert::IsTrue(MathUtils::AreClose(1, 0, 1));
+			Assert::IsTrue(MathUtils::AreClose(0, 1, 1));
+			Assert::IsTrue(MathUtils::AreClose(0, -1, 1));
+			Assert::IsTrue(MathUtils::AreClose(-1, 0, 1));
+			Assert::IsTrue(MathUtils::AreClose(5, 4, 1));
+			Assert::IsTrue(MathUtils::AreClose(4, 5, 1));
+			Assert::IsTrue(MathUtils::AreClose(-4, -5, 1));
+			Assert::IsTrue(MathUtils::AreClose(-5, -4, 1));
+			Assert::IsTrue(MathUtils::AreClose(1, -1, 2));
+			Assert::IsTrue(MathUtils::AreClose(-1, 1, 2));
+			Assert::IsTrue(MathUtils::AreClose(5, -5, 10));
+			Assert::IsTrue(MathUtils::AreClose(-5, 5, 10));
+			Assert::IsTrue(MathUtils::AreClose(50, 150, 100));
+			Assert::IsTrue(MathUtils::AreClose(-50, -150, 100));
+		}
+		
+		TEST_METHOD(shouldNotDetectIntsAsCloseWhenOutsideTolerance)
+		{
+			Assert::IsFalse(MathUtils::AreClose(2, 0, 1));
+			Assert::IsFalse(MathUtils::AreClose(0, 2, 1));
+			Assert::IsFalse(MathUtils::AreClose(0, -2, 1));
+			Assert::IsFalse(MathUtils::AreClose(-2, 0, 1));
+			Assert::IsFalse(MathUtils::AreClose(6, 4, 1));
+			Assert::IsFalse(MathUtils::AreClose(4, 6, 1));
+			Assert::IsFalse(MathUtils::AreClose(-4, -6, 1));
+			Assert::IsFalse(MathUtils::AreClose(-6, -4, 1));
+			Assert::IsFalse(MathUtils::AreClose(1, -1, 1));
+			Assert::IsFalse(MathUtils::AreClose(-1, 1, 1));
+			Assert::IsFalse(MathUtils::AreClose(5, -5, 9));
+			Assert::IsFalse(MathUtils::AreClose(-5, 5, 9));
+			Assert::IsFalse(MathUtils::AreClose(50, 150, 99));
+			Assert::IsFalse(MathUtils::AreClose(-50, -150, 99));
+		}
+		
+		TEST_METHOD(shouldDetectCloseUIntsWhenTheyAreEqual)
+		{
+			Assert::IsTrue(MathUtils::AreClose(0u, 0u, 0u));
+			Assert::IsTrue(MathUtils::AreClose(5u, 5u, 0u));
+		}
+		
+		TEST_METHOD(shouldNotDetectUIntsAsCloseWhenTheyAreNotEqualAndToleranceIsZero)
+		{
+			Assert::IsFalse(MathUtils::AreClose(1u, 0u, 0u));
+			Assert::IsFalse(MathUtils::AreClose(0u, 1u, 0u));
+			Assert::IsFalse(MathUtils::AreClose(50u, 51u, 0u));
+			Assert::IsFalse(MathUtils::AreClose(99u, 100u, 0u));
+		}
+
+		TEST_METHOD(shouldDetectCloseUnsignedTypesWhenWithinTolerance)
+		{
+			Assert::IsTrue(MathUtils::AreClose(1u, 0u, 1u));
+			Assert::IsTrue(MathUtils::AreClose(0u, 1u, 1u));
+			Assert::IsTrue(MathUtils::AreClose(5u, 4u, 1u));
+			Assert::IsTrue(MathUtils::AreClose(4u, 5u, 1u));
+			Assert::IsTrue(MathUtils::AreClose(50u, 150u, 100u));
+			
+			Assert::IsTrue(MathUtils::AreClose(1ul, 0ul, 1ul));
+			Assert::IsTrue(MathUtils::AreClose(0ul, 1ul, 1ul));
+			Assert::IsTrue(MathUtils::AreClose(5ul, 4ul, 1ul));
+			Assert::IsTrue(MathUtils::AreClose(4ul, 5ul, 1ul));
+			Assert::IsTrue(MathUtils::AreClose(50ul, 150ul, 100ul));
+			
+			Assert::IsTrue(MathUtils::AreClose(1ull, 0ull, 1ull));
+			Assert::IsTrue(MathUtils::AreClose(0ull, 1ull, 1ull));
+			Assert::IsTrue(MathUtils::AreClose(5ull, 4ull, 1ull));
+			Assert::IsTrue(MathUtils::AreClose(4ull, 5ull, 1ull));
+			Assert::IsTrue(MathUtils::AreClose(50ull, 150ull, 100ull));
+		}
+		
+		TEST_METHOD(shouldNotDetectUnsignedTypesAsCloseWhenOutsideTolerance)
+		{
+			Assert::IsFalse(MathUtils::AreClose(2u, 0u, 1u));
+			Assert::IsFalse(MathUtils::AreClose(0u, 2u, 1u));
+			Assert::IsFalse(MathUtils::AreClose(6u, 4u, 1u));
+			Assert::IsFalse(MathUtils::AreClose(4u, 6u, 1u));
+			Assert::IsFalse(MathUtils::AreClose(50u, 150u, 99u));
+			
+			Assert::IsFalse(MathUtils::AreClose(2ul, 0ul, 1ul));
+			Assert::IsFalse(MathUtils::AreClose(0ul, 2ul, 1ul));
+			Assert::IsFalse(MathUtils::AreClose(6ul, 4ul, 1ul));
+			Assert::IsFalse(MathUtils::AreClose(4ul, 6ul, 1ul));
+			Assert::IsFalse(MathUtils::AreClose(50ul, 150ul, 99ul));
+			
+			Assert::IsFalse(MathUtils::AreClose(2ull, 0ull, 1ull));
+			Assert::IsFalse(MathUtils::AreClose(0ull, 2ull, 1ull));
+			Assert::IsFalse(MathUtils::AreClose(6ull, 4ull, 1ull));
+			Assert::IsFalse(MathUtils::AreClose(4ull, 6ull, 1ull));
+			Assert::IsFalse(MathUtils::AreClose(50ull, 150ull, 99ull));
+		}
+
+		TEST_METHOD(shouldCompareEqualDoublesAsEqualWhenWithinEpsilon)
+		{
+			Assert::IsTrue(MathUtils::AreClose(0.0, 0.0, numeric_limits<double>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(1.0, 1.0, numeric_limits<double>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(-1.0, -1.0, numeric_limits<double>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(10000.0, 10000.0, numeric_limits<double>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(-10000.0, -10000.0, numeric_limits<double>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(999999999999.0, 999999999999.0, numeric_limits<double>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(-999999999999.0, -999999999999.0, numeric_limits<double>::epsilon()));
+		}
+
+		TEST_METHOD(shouldCompareDoublesAsEqualWhenWithinTolerance)
+		{
+			Assert::IsTrue(MathUtils::AreClose(0.0, 0.01, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(0.01, 0.0, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(1.0, 1.01, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(1.01, 1.0, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(-1.0, -1.01, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(-1.01, -1.0, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(10000.01, 10000.0, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(10000.0, 10000.01, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(-10000.01, -10000.0, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(-10000.0, -10000.01, 0.011));
+			Assert::IsTrue(MathUtils::AreClose(0.1, -0.1, 0.21));
+			Assert::IsTrue(MathUtils::AreClose(-0.1, 0.1, 0.21));
+		}
+
+		TEST_METHOD(shouldNotCompareDoublesAsEqualWhenOutsideTolerance)
+		{
+			Assert::IsFalse(MathUtils::AreClose(0.0, 0.01, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(0.01, 0.0, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(1.0, 1.01, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(1.01, 1.0, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(-1.0, -1.01, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(-1.01, -1.0, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(10000.01, 10000.0, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(10000.0, 10000.01, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(-10000.01, -10000.0, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(-10000.0, -10000.01, 0.009));
+			Assert::IsFalse(MathUtils::AreClose(0.1, -0.1, 0.19));
+			Assert::IsFalse(MathUtils::AreClose(-0.1, 0.1, 0.19));
+		}
+
+		TEST_METHOD(shouldCompareEqualFloatsAsEqualWhenWithinEpsilon)
+		{
+			Assert::IsTrue(MathUtils::AreClose(0.0f, 0.0f, numeric_limits<float>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(1.0f, 1.0f, numeric_limits<float>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(-1.0f, -1.0f, numeric_limits<float>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(10000.0f, 10000.0f, numeric_limits<float>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(-10000.0f, -10000.0f, numeric_limits<float>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(999999999999.0f, 999999999999.0f, numeric_limits<float>::epsilon()));
+			Assert::IsTrue(MathUtils::AreClose(-999999999999.0f, -999999999999.0f, numeric_limits<float>::epsilon()));
+		}
+
+		TEST_METHOD(shouldCompareFloatsAsEqualWhenWithinTolerance)
+		{
+			Assert::IsTrue(MathUtils::AreClose(0.0f, 0.01f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(0.01f, 0.0f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(1.0f, 1.01f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(1.01f, 1.0f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(-1.0f, -1.01f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(-1.01f, -1.0f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(10000.01f, 10000.0f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(10000.0f, 10000.01f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(-10000.01f, -10000.0f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(-10000.0f, -10000.01f, 0.011f));
+			Assert::IsTrue(MathUtils::AreClose(0.1f, -0.1f, 0.21f));
+			Assert::IsTrue(MathUtils::AreClose(-0.1f, 0.1f, 0.21f));
+		}
+
+		TEST_METHOD(shouldNotCompareFloatsAsEqualWhenOutsideTolerance)
+		{
+			Assert::IsFalse(MathUtils::AreClose(0.0f, 0.01f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(0.01f, 0.0f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(1.0f, 1.01f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(1.01f, 1.0f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(-1.0f, -1.01f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(-1.01f, -1.0f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(10000.01f, 10000.0f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(10000.0f, 10000.01f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(-10000.01f, -10000.0f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(-10000.0f, -10000.01f, 0.009f));
+			Assert::IsFalse(MathUtils::AreClose(0.1f, -0.1f, 0.19f));
+			Assert::IsFalse(MathUtils::AreClose(-0.1f, 0.1f, 0.19f));
 		}
 	};
 }
