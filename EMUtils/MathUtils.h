@@ -169,7 +169,7 @@ std::vector<T> MathUtils::GetPrimesToN(const T& n)
 template <typename T>
 bool MathUtils::AreClose(const T& first, const T& second, const T& tolerance)
 {
-	return abs(static_cast< std::make_signed<T>::type >(first-second)) <= tolerance;
+	return abs(static_cast< std::make_signed<T>::type >(first-second)) <= static_cast< std::make_signed<T>::type >(tolerance);
 }
 
 template <>
