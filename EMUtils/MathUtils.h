@@ -5,9 +5,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <stdlib.h>
-
-typedef unsigned long long emu64;
-typedef unsigned int emuint;
+#include "emvartypes.h"
 
 namespace MathUtils
 {

@@ -1,5 +1,6 @@
 #include "EMUtils.h"
 #include <Windows.h>
+#include <string>
 
 emu64 EMUtils::cpuTimerStart;
 long long EMUtils::cpuFrequency;
