@@ -360,7 +360,7 @@ namespace MathUtilsUnitTest
 		}
 	};
 	
-	TEST_CLASS(TestIsClose)
+	TEST_CLASS(TestAreClose)
 	{
 	public:
 		TEST_METHOD(shouldDetectCloseIntsWhenTheyAreEqual)
