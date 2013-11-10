@@ -35,3 +35,8 @@ double EMUtils::GetLapTimeS()
 	}
 	return static_cast<double>((li.QuadPart - cpuTimerStart)/static_cast<double>(cpuFrequency));
 }
+
+void EMUtils::Sleep(int timeMs)
+{
+	::Sleep(timeMs);
+}
