@@ -3,7 +3,7 @@
 
 #include <tchar.h>
 #include <iostream>
-#include "EMUtils.h"
+#include "EMTimer.h"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ T ForLoopFactorial(const T& value)
 int _tmain(int argc, wchar_t* argv[])
 {
 	unsigned long long total = 0;
-	EMUtils::StartTimer();
+	EMTimer::Start();
 	for (ull i=1; i<10000000; i++) {
 		for (ull j=1; j<20; j++) {
 			//total += ForLoopFactorial(j);
@@ -37,7 +37,7 @@ int _tmain(int argc, wchar_t* argv[])
 		}
 	}
 	cout << "Total: " << total << endl;
-	cout << "Total time: " << EMUtils::GetLapTimeMs() << endl;
+	cout << "Total time: " << EMTimer::GetLapTimeMs() << endl;
 
 	system("pause");
 	return 0;
