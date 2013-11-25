@@ -560,4 +560,145 @@ namespace MathUtilsUnitTest
 			Assert::IsFalse(MathUtils::AreClose(-0.1f, 0.1f, 0.19f));
 		}
 	};
+	
+	TEST_CLASS(TestGetNoDigits)
+	{
+	public:
+		TEST_METHOD(shouldReturnZeroDigitsInZeroInAnyBase)
+		{
+			Assert::AreEqual(0, MathUtils::GetNumberOfDigits(0));
+			Assert::AreEqual(0, MathUtils::GetNumberOfDigits(0, 2));
+			Assert::AreEqual(0, MathUtils::GetNumberOfDigits(0, 3));
+			Assert::AreEqual(0, MathUtils::GetNumberOfDigits(0, 10));
+			Assert::AreEqual(0, MathUtils::GetNumberOfDigits(0, 99));
+		}
+		
+		TEST_METHOD(shouldGetNumberOfDigitsOfPositiveNumbersInBaseTen)
+		{
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(1));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(9));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(10));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(99));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(100));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(999));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(1000));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(9999));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(10000));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(99999));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(100000));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(999999));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(1000000));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(9999999));
+			Assert::AreEqual(8, MathUtils::GetNumberOfDigits(10000000));
+			Assert::AreEqual(8, MathUtils::GetNumberOfDigits(99999999));
+			Assert::AreEqual(9, MathUtils::GetNumberOfDigits(100000000));
+			Assert::AreEqual(9, MathUtils::GetNumberOfDigits(999999999));
+			Assert::AreEqual(10, MathUtils::GetNumberOfDigits(1000000000));
+		}
+		
+		TEST_METHOD(shouldGetNumberOfDigitsOfNegativeNumbersInBaseTen)
+		{
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(-1));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(-9));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(-10));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(-99));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-100));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-999));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(-1000));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(-9999));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-10000));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-99999));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(-100000));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(-999999));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(-1000000));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(-9999999));
+			Assert::AreEqual(8, MathUtils::GetNumberOfDigits(-10000000));
+			Assert::AreEqual(8, MathUtils::GetNumberOfDigits(-99999999));
+			Assert::AreEqual(9, MathUtils::GetNumberOfDigits(-100000000));
+			Assert::AreEqual(9, MathUtils::GetNumberOfDigits(-999999999));
+			Assert::AreEqual(10, MathUtils::GetNumberOfDigits(-1000000000));
+		}
+		
+		TEST_METHOD(shouldGetNumberOfDigitsOfPositiveNumbersInBinary)
+		{
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(1, 2));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(2, 2));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(3, 2));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(4, 2));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(7, 2));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(8, 2));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(15, 2));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(16, 2));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(31, 2));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(32, 2));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(63, 2));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(64, 2));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(127, 2));
+		}
+		
+		TEST_METHOD(shouldGetNumberOfDigitsOfNegaitiveNumbersInBinary)
+		{
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(-1, 2));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(-2, 2));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(-3, 2));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-4, 2));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-7, 2));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(-8, 2));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(-15, 2));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-16, 2));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-31, 2));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(-32, 2));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(-63, 2));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(-64, 2));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(-127, 2));
+		}
+		
+		TEST_METHOD(shouldGetNumberOfDigitsOfPositiveNumbersInAnyBase)
+		{
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(1, 3));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(1, 5));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(1, 7));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(1, 9));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(10, 3));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(10, 5));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(10, 7));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(10, 9));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(100, 3));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(100, 5));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(100, 7));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(100, 9));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(1000, 3));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(1000, 5));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(1000, 7));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(1000, 9));
+			Assert::AreEqual(9, MathUtils::GetNumberOfDigits(10000, 3));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(10000, 5));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(10000, 7));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(10000, 9));
+		}
+		
+		TEST_METHOD(shouldGetNumberOfDigitsOfNegaitiveNumbersInAnyBase)
+		{
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(-1, 3));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(-1, 5));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(-1, 7));
+			Assert::AreEqual(1, MathUtils::GetNumberOfDigits(-1, 9));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-10, 3));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(-10, 5));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(-10, 7));
+			Assert::AreEqual(2, MathUtils::GetNumberOfDigits(-10, 9));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-100, 3));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-100, 5));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-100, 7));
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(-100, 9));
+			Assert::AreEqual(7, MathUtils::GetNumberOfDigits(-1000, 3));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-1000, 5));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(-1000, 7));
+			Assert::AreEqual(4, MathUtils::GetNumberOfDigits(-1000, 9));
+			Assert::AreEqual(9, MathUtils::GetNumberOfDigits(-10000, 3));
+			Assert::AreEqual(6, MathUtils::GetNumberOfDigits(-10000, 5));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-10000, 7));
+			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-10000, 9));
+		}
+	};
 }

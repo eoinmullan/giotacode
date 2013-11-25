@@ -5,6 +5,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <stdlib.h>
+#include <sstream>
 #include "emvartypes.h"
 
 namespace MathUtils
@@ -17,6 +18,7 @@ namespace MathUtils
 	template <typename T> std::vector<bool> GetPrimesBoolArrayToN(const T& n);
 	template <typename T> std::vector<T> GetPrimesToN(const T& n);
 	template <typename T> bool AreClose(const T& first, const T& second, const T& tolerance);
+	template <typename T> T GetNumberOfDigits(const T& value, const T base = 10);
 	
 	template <typename T> std::string uncheckedToAlternateBaseRepresentation(const T& value, const T& base);
 };
@@ -180,4 +182,15 @@ template <>
 bool MathUtils::AreClose(const float& first, const float& second, const float& tolerance)
 {
 	return fabs(first-second) <= tolerance;
+}
+
+template <typename T> T MathUtils::GetNumberOfDigits(const T& value, const T base /*= 10*/)
+{
+    T digits = 0;
+	auto absoluteValue = abs(value);
+    while (absoluteValue) {
+        absoluteValue /= base;
+        digits++;
+    }
+    return digits;
 }
