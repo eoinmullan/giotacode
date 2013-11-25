@@ -19,6 +19,7 @@ namespace MathUtils
 	template <typename T> std::vector<T> GetPrimesToN(const T& n);
 	template <typename T> bool AreClose(const T& first, const T& second, const T& tolerance);
 	template <typename T> T GetNumberOfDigits(const T& value, const T base = 10);
+	template <typename T> bool IsPalindromic(const T& value, const T base = 10);
 	
 	template <typename T> std::string uncheckedToAlternateBaseRepresentation(const T& value, const T& base);
 };
@@ -193,4 +194,22 @@ template <typename T> T MathUtils::GetNumberOfDigits(const T& value, const T bas
         digits++;
     }
     return digits;
+}
+
+template <typename T> bool MathUtils::IsPalindromic(const T& value, const T base /*= 10*/)
+{
+	if (value < 0) {
+		return false;
+	}
+	else {
+		auto noDigits = GetNumberOfDigits(value, base);
+		auto stringNumber = ToAlternateBaseRepresentation(value, base);
+		auto isPalindromic = true;
+		for (auto i=0; i<noDigits/2 && isPalindromic; i++) {
+			if (stringNumber[i] != stringNumber[noDigits-i-1]) {
+				isPalindromic = false;
+			}
+		}
+		return isPalindromic;
+	}
 }

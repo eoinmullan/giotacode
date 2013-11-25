@@ -701,4 +701,92 @@ namespace MathUtilsUnitTest
 			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-10000, 9));
 		}
 	};
+
+	TEST_CLASS(TestIsPalindromic)
+	{
+	public:
+		TEST_METHOD(shouldReturnZeroIsPalindromicInAnyBase)
+		{
+			Assert::IsTrue(MathUtils::IsPalindromic(0));
+			Assert::IsTrue(MathUtils::IsPalindromic(0, 2));
+			Assert::IsTrue(MathUtils::IsPalindromic(0, 5));
+			Assert::IsTrue(MathUtils::IsPalindromic(0, 10));
+		}
+
+		TEST_METHOD(shouldReturnSingleDigitsAsPalindromicInBaseTen)
+		{
+			Assert::IsTrue(MathUtils::IsPalindromic(1));
+			Assert::IsTrue(MathUtils::IsPalindromic(2));
+			Assert::IsTrue(MathUtils::IsPalindromic(3));
+			Assert::IsTrue(MathUtils::IsPalindromic(4));
+			Assert::IsTrue(MathUtils::IsPalindromic(5));
+			Assert::IsTrue(MathUtils::IsPalindromic(6));
+			Assert::IsTrue(MathUtils::IsPalindromic(7));
+			Assert::IsTrue(MathUtils::IsPalindromic(8));
+			Assert::IsTrue(MathUtils::IsPalindromic(9));
+		}
+
+		TEST_METHOD(shouldReturnSingleDigitsAsPalindromicInAnyBase)
+		{
+			Assert::IsTrue(MathUtils::IsPalindromic(1, 9));
+			Assert::IsTrue(MathUtils::IsPalindromic(2, 8));
+			Assert::IsTrue(MathUtils::IsPalindromic(3, 7));
+			Assert::IsTrue(MathUtils::IsPalindromic(4, 6));
+			Assert::IsTrue(MathUtils::IsPalindromic(5, 9));
+			Assert::IsTrue(MathUtils::IsPalindromic(6, 8));
+			Assert::IsTrue(MathUtils::IsPalindromic(7, 10));
+			Assert::IsTrue(MathUtils::IsPalindromic(8, 12));
+			Assert::IsTrue(MathUtils::IsPalindromic(9, 14));
+		}
+
+		TEST_METHOD(shouldReturnPalindromicBase10NumberWithEvenNumberOfDigitsIsPalindromic)
+		{
+			Assert::IsTrue(MathUtils::IsPalindromic(1221));
+			Assert::IsTrue(MathUtils::IsPalindromic(1001));
+			Assert::IsTrue(MathUtils::IsPalindromic(321123));
+			Assert::IsTrue(MathUtils::IsPalindromic(9999));
+			Assert::IsTrue(MathUtils::IsPalindromic(1234554321));
+			Assert::IsTrue(MathUtils::IsPalindromic(9876556789));
+		}
+
+		TEST_METHOD(shouldReturnPalindromicBase10NumberWithOddNumberOfDigitsIsPalindromic)
+		{
+			Assert::IsTrue(MathUtils::IsPalindromic(12321));
+			Assert::IsTrue(MathUtils::IsPalindromic(10501));
+			Assert::IsTrue(MathUtils::IsPalindromic(3217123));
+			Assert::IsTrue(MathUtils::IsPalindromic(99199));
+			Assert::IsTrue(MathUtils::IsPalindromic(12345654321));
+			Assert::IsTrue(MathUtils::IsPalindromic(987656789));
+		}
+
+		TEST_METHOD(shouldReturnNonPalindromicNumbersAsNotPalendromicInAnyBase)
+		{
+			Assert::IsFalse(MathUtils::IsPalindromic(1321));
+			Assert::IsFalse(MathUtils::IsPalindromic(1701));
+			Assert::IsFalse(MathUtils::IsPalindromic(381123));
+			Assert::IsFalse(MathUtils::IsPalindromic(9899));
+			Assert::IsFalse(MathUtils::IsPalindromic(1134554321));
+			Assert::IsFalse(MathUtils::IsPalindromic(9876456789));
+			Assert::IsFalse(MathUtils::IsPalindromic(1321, 2));
+			Assert::IsFalse(MathUtils::IsPalindromic(1701, 3));
+			Assert::IsFalse(MathUtils::IsPalindromic(381123, 4));
+			Assert::IsFalse(MathUtils::IsPalindromic(9899, 5));
+			Assert::IsFalse(MathUtils::IsPalindromic(1134554321, 6));
+			Assert::IsFalse(MathUtils::IsPalindromic(987456789, 7));
+			Assert::IsFalse(MathUtils::IsPalindromic(5, 5));
+			Assert::IsFalse(MathUtils::IsPalindromic(6, 4));
+		}
+
+		TEST_METHOD(shouldReturnNegativeNumbersAsNotPalindromicInAnyBase)
+		{
+			Assert::IsFalse(MathUtils::IsPalindromic(-1));
+			Assert::IsFalse(MathUtils::IsPalindromic(-1, 2));
+			Assert::IsFalse(MathUtils::IsPalindromic(-1, 5));
+			Assert::IsFalse(MathUtils::IsPalindromic(-1, 10));
+			Assert::IsFalse(MathUtils::IsPalindromic(-9999));
+			Assert::IsFalse(MathUtils::IsPalindromic(-9999, 4));
+			Assert::IsFalse(MathUtils::IsPalindromic(-9999, 7));
+			Assert::IsFalse(MathUtils::IsPalindromic(-9999, 12));
+		}
+	};
 }
