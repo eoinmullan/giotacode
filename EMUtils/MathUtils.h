@@ -188,7 +188,7 @@ bool MathUtils::AreClose(const float& first, const float& second, const float& t
 template <typename T> T MathUtils::GetNumberOfDigits(const T& value, const T base /*= 10*/)
 {
     T digits = 0;
-	auto absoluteValue = abs(value);
+	auto absoluteValue = static_cast<T>(abs(static_cast<double>(value)));
     while (absoluteValue) {
         absoluteValue /= base;
         digits++;
@@ -202,10 +202,10 @@ template <typename T> bool MathUtils::IsPalindromic(const T& value, const T base
 		return false;
 	}
 	else {
-		auto noDigits = GetNumberOfDigits(value, base);
+		auto noDigits = static_cast<unsigned int>(GetNumberOfDigits(value, base));
 		auto stringNumber = ToAlternateBaseRepresentation(value, base);
 		auto isPalindromic = true;
-		for (auto i=0; i<noDigits/2 && isPalindromic; i++) {
+		for (unsigned int i=0; i<noDigits/2 && isPalindromic; i++) {
 			if (stringNumber[i] != stringNumber[noDigits-i-1]) {
 				isPalindromic = false;
 			}

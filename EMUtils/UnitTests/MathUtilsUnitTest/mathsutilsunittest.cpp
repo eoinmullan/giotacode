@@ -700,6 +700,14 @@ namespace MathUtilsUnitTest
 			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-10000, 7));
 			Assert::AreEqual(5, MathUtils::GetNumberOfDigits(-10000, 9));
 		}
+
+		TEST_METHOD(shouldWorkForAnyIntegralType)
+		{
+			Assert::AreEqual(3, MathUtils::GetNumberOfDigits(100, 7));
+			Assert::AreEqual(3u, MathUtils::GetNumberOfDigits(100u, 7u));
+			Assert::AreEqual(3l, MathUtils::GetNumberOfDigits(100l, 7l));
+			Assert::AreEqual(3ul, MathUtils::GetNumberOfDigits(100ul, 7ul));
+		}
 	};
 
 	TEST_CLASS(TestIsPalindromic)
