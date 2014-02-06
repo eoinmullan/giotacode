@@ -797,4 +797,58 @@ namespace MathUtilsUnitTest
 			Assert::IsFalse(MathUtils::IsPalindromic(-9999, 12));
 		}
 	};
+
+	TEST_CLASS(TestIsPandigital)
+	{
+	public:
+		TEST_METHOD(shouldThrowIfNumberOfDigitsToCheckIsGreaterThanNine)
+		{
+			Assert::ExpectException<std::out_of_range>([](){ MathUtils::IsOneThroughNPandigital(123, 10); });
+			Assert::ExpectException<std::out_of_range>([](){ MathUtils::IsOneThroughNPandigital(123, 100); });
+		}
+
+		TEST_METHOD(shouldReturnFalseForNumbersWithIncorrectNumberOfDigits)
+		{
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(1, 2));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(12, 1));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(12, 3));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(123, 2));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(123, 4));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(12345678, 7));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(12345678, 9));
+		}
+		
+		TEST_METHOD(shouldReturnFalseForNumbersWIthCorrectNumberOfDigitsButNotPandigital)
+		{
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(1223, 4));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(1244, 4));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(1245, 4));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(1203, 4));
+			
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(0, 1));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(2, 1));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(9, 1));
+			
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(123456781, 9));
+			Assert::IsFalse(MathUtils::IsOneThroughNPandigital(123456799, 9));
+		}
+		
+		TEST_METHOD(shouldReturnTrueForPandigitalNumbersWithTheCorrectNumberOfDigits)
+		{
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(123456789, 9));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(987654321, 9));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(162738495, 9));
+			
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(12345678, 8));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(87654321, 8));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(15263748, 8));
+			
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(123, 3));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(132, 3));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(213, 3));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(231, 3));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(312, 3));
+			Assert::IsTrue(MathUtils::IsOneThroughNPandigital(321, 3));
+		}
+	};
 }

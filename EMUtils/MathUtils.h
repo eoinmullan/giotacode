@@ -20,6 +20,7 @@ namespace MathUtils
 	template <typename T> bool AreClose(const T& first, const T& second, const T& tolerance);
 	template <typename T> T GetNumberOfDigits(const T& value, const T base = 10);
 	template <typename T> bool IsPalindromic(const T& value, const T base = 10);
+	template <typename T> bool IsOneThroughNPandigital(T value, const T& noDigits);
 	
 	template <typename T> std::string uncheckedToAlternateBaseRepresentation(const T& value, const T& base);
 };
@@ -211,5 +212,32 @@ template <typename T> bool MathUtils::IsPalindromic(const T& value, const T base
 			}
 		}
 		return isPalindromic;
+	}
+}
+
+template <typename T> bool MathUtils::IsOneThroughNPandigital(T value, const T& noDigits)
+{
+	if (noDigits > 9) {
+		throw std::out_of_range("Error in IsPandigital: Number of digits to check must be from 1 to 9");
+	}
+	else if (MathUtils::GetNumberOfDigits(value) != noDigits) {
+		return false;
+	}
+	else {
+		vector<bool> allDigits(noDigits, false);
+		for (auto i=0; i<noDigits; i++) {
+			auto digitToCheck = value%10-1;
+			if ((digitToCheck < 0) || (digitToCheck >= noDigits)) {
+				return false;
+			}
+			else if (allDigits[digitToCheck]) {
+				return false;
+			}
+			else {
+				allDigits[value%10-1] = true;
+				value /= 10;
+			}
+		}
+		return true;
 	}
 }
