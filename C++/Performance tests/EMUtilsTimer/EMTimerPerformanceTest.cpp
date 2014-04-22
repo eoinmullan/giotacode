@@ -10,14 +10,14 @@
 
 using namespace std;
 
-void TestShouldInitiallyReturnZero();
-void TestGetLapTimeMs();
-void TestGetLapTimeS();
-void TestReset();
-void TestStop();
-void TestStopAndReStart();
-void TestStopResetAndReStart();
-void TestStartWhenRunningIsIneffective();
+void ShouldInitiallyReturnZero();
+void ShouldGetLapTimeMs();
+void ShouldGetLapTimeS();
+void ShouldReset();
+void ShouldStop();
+void ShouldStopAndReStart();
+void ShouldStopResetAndReStart();
+void ShouldNotStartWhenAlreadyRunning();
 
 // Helper methods
 void sleepAndCheckLapTimeMsForSeriesOfIntervals(const vector<int>& sleepTimes, emu64 startingOffset = 0);
@@ -33,14 +33,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	cout << "Testing EMTimer timer functionality...\n\n";
 	try {
-		TestShouldInitiallyReturnZero();
-		TestGetLapTimeMs();
-		TestGetLapTimeS();
-		TestReset();
-		TestStop();
-		TestStopAndReStart();
-		TestStopResetAndReStart();
-		TestStartWhenRunningIsIneffective();
+		ShouldInitiallyReturnZero();
+		ShouldGetLapTimeMs();
+		ShouldGetLapTimeS();
+		ShouldReset();
+		ShouldStop();
+		ShouldStopAndReStart();
+		ShouldStopResetAndReStart();
+		ShouldNotStartWhenAlreadyRunning();
 	}
 	catch (std::string e) {
 		cout << "EMTimer timer test fail\n";
@@ -59,12 +59,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	return 0;
 }
 
-void TestShouldInitiallyReturnZero()
+void ShouldInitiallyReturnZero()
 {
 	checkTimeAndThrowOnMismatch(EMTimer::GetLapTimeMs(), static_cast<emu64>(0), static_cast<emu64>(gTolerance));
 }
 
-void TestGetLapTimeMs()
+void ShouldGetLapTimeMs()
 {
 	cout << "Testing GetLapTimesMs()..." << flush;
 	static const int arr[] = {50, 50, 100, 300, 500, 1000};
@@ -77,7 +77,7 @@ void TestGetLapTimeMs()
 	cout << "Pass\n";
 }
 
-void TestGetLapTimeS()
+void ShouldGetLapTimeS()
 {
 	cout << "Testing GetLapTimeS()..." << flush;
 	EMTimer::Start();
@@ -92,7 +92,7 @@ void TestGetLapTimeS()
 	cout << "Pass\n";
 }
 
-void TestReset()
+void ShouldReset()
 {
 	cout << "Test Reset()..." << flush;
 	static const int arr[] = {50, 50, 100, 300, 500, 1000};
@@ -107,7 +107,7 @@ void TestReset()
 	cout << "Pass\n";
 }
 
-void TestStop()
+void ShouldStop()
 {
 	cout << "Test Stop()..." << flush;
 	static const int arr[] = {50, 50, 100, 300, 500, 1000};
@@ -123,7 +123,7 @@ void TestStop()
 	cout << "Pass\n";
 }
 
-void TestStopAndReStart()
+void ShouldStopAndReStart()
 {
 	cout << "Test Stop and then Start..." << flush;
 	EMTimer::Start();
@@ -144,7 +144,7 @@ void TestStopAndReStart()
 	cout << "Pass\n";
 }
 
-void TestStopResetAndReStart()
+void ShouldStopResetAndReStart()
 {
 	cout << "Test Stop, Reset, and re-Start..." << flush;
 	EMTimer::Start();
@@ -167,7 +167,7 @@ void TestStopResetAndReStart()
 	cout << "Pass\n";
 }
 
-void TestStartWhenRunningIsIneffective()
+void ShouldNotStartWhenAlreadyRunning()
 {
 	cout << "Test Start when running is ineffective..." << flush;
 	EMTimer::Start();
