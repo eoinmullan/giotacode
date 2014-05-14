@@ -69,6 +69,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CaesarShiftDecryptionAlgorithm.cs" />
     <Compile Include="Models\EncryptedText.cs" />
     <Compile Include="Models\XORDecryptionAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
