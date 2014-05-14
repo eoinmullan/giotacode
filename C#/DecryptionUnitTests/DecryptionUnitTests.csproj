@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="EncryptedTextUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XORDecryptionAlgorithmUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Decryption\Decryption.csproj">
