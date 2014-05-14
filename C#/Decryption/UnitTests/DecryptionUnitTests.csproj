@@ -56,7 +56,7 @@
     <Compile Include="XORDecryptionAlgorithmUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Decryption\Decryption.csproj">
+    <ProjectReference Include="..\Decryption.csproj">
       <Project>{012ad3ef-5775-429c-8afb-ffce4762bef3}</Project>
       <Name>Decryption</Name>
     </ProjectReference>

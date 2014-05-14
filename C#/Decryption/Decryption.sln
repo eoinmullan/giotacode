@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decryption", "Decryption.csproj", "{012AD3EF-5775-429C-8AFB-FFCE4762BEF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecryptionUnitTests", "..\DecryptionUnitTests\DecryptionUnitTests.csproj", "{7FA85683-F656-43EA-ACC7-0D29601534EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\DecryptionUnitTests.csproj", "{7FA85683-F656-43EA-ACC7-0D29601534EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
