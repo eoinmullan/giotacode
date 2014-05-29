@@ -13,6 +13,11 @@ namespace DecryptionUnitTests {
         }
 
         [TestMethod]
+        public void ShouldHandleEmptyString() {
+            Assert.AreEqual("", target.DecryptText(""));
+        }
+
+        [TestMethod]
         public void ShouldReturnAllQuestionMarksWhenNoKeyIsSet() {
             Assert.AreEqual("??????????", target.DecryptText("a12BC4./9y"));
         }

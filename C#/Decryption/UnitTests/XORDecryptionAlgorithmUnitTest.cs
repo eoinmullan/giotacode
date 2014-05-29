@@ -28,6 +28,11 @@ namespace DecryptionUnitTests {
         }
 
         [TestMethod]
+        public void ShouldHandleEmptyString() {
+            Assert.AreEqual("", target.DecryptText(""));
+        }
+
+        [TestMethod]
         public void ShouldConvert65TokWhenKeyIs42() {
             target.Key = new byte[] {42};
 

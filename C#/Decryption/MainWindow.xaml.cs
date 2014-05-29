@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Decryption.ViewModels;
+using Decryption.Models;
 
 namespace Decryption {
     /// <summary>
@@ -20,6 +22,22 @@ namespace Decryption {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+
+            var caesarShiftAlgorithm = new CaesarShiftDecryptionAlgorithm();
+            var xorAlgorithm = new XORDecryptionAlgorithm();
+            var monoAlphaAlgorithm = new MonoAlphaSubDecryptionAlgorithm();
+
+            DataContext = new DecrypterViewModel(caesarShiftAlgorithm, xorAlgorithm, monoAlphaAlgorithm);
+        }
+    }
+
+    public class EnumToBooleanConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+            return value.Equals(parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+            return value.Equals(true) ? parameter : Binding.DoNothing;
         }
     }
 }

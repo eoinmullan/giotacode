@@ -13,6 +13,11 @@ namespace DecryptionUnitTests {
         }
 
         [TestMethod]
+        public void ShouldHandleEmptyString() {
+            Assert.AreEqual("", target.DecryptText(""));
+        }
+
+        [TestMethod]
         public void ShouldReturnEncryptedTextUnchangedWhenNoKeyIsSet() {
             var testString = "The Quick Brown Fox Jumped Over The Lazy Dog.";
 

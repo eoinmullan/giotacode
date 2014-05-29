@@ -17,6 +17,10 @@ namespace Decryption.Models {
         }
 
         public string DecryptText(string encryptedText) {
+            if (encryptedText.Equals(string.Empty)) {
+                return string.Empty;
+            }
+
             return String.Concat(encryptedText.Split(',').Select((x, i) => (char)(Int32.Parse(x) ^ Key[i % Key.Length])));
         }
     }
