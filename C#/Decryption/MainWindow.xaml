@@ -5,25 +5,59 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" >
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type RadioButton}">
-                    <Setter Property="Margin" Value="0,5,5,0"/>
-                </Style>
-            </StackPanel.Resources>
-            <Label Content="Encryption Type: " VerticalAlignment="Top"/>
-            <RadioButton Content="XOR" />
-            <RadioButton Content="Ceasar" />
-            <RadioButton Content="Mono Sub" />
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Vertical" >
-            <Label Content="Encrypted Text" />
-            <TextBox Text="{Binding Path=EncryptedText}" TextWrapping="Wrap" Height="100"/>
-            <Label Content="Decrypted Text" />
-            <TextBox Text="{Binding Path=DecryptedText, Mode=OneWay}" TextWrapping="Wrap" Height="100"/>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <ListBox ItemsSource="{Binding DecryptionAlgorithms}" Name="MyListBox" SelectedItem="{Binding DecryptionAlgorithm}">
+                <ListBox.Resources>
+                    <ControlTemplate x:Key="ListBoxItem" TargetType="ListBoxItem">
+                        <StackPanel>
+                            <ContentPresenter/>
+                        </StackPanel>
+                    </ControlTemplate>
+
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template" Value="{StaticResource ListBoxItem}"/>
+                    </Style>
+                </ListBox.Resources>
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <ItemsPresenter/>
+                    </ControlTemplate>
+                </ListBox.Template>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <RadioButton Content="{Binding}"
+                                         IsEnabled="True"
+                                         IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}"
+                                         Margin="10,2,20,2"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Encrypted Text" />
+            <TextBox Grid.Row="1" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto">
+                <TextBox.Text>
+                    <Binding Path="EncryptedText" UpdateSourceTrigger="PropertyChanged"/>
+                </TextBox.Text>
+            </TextBox>
+            <Label Grid.Row="2" Content="Decrypted Text" />
+            <TextBox Grid.Row="3" Text="{Binding Path=DecryptedText, Mode=OneWay}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+        </Grid>
     </Grid>
 </Window>
