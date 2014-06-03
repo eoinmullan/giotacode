@@ -33,5 +33,9 @@ namespace Decryption.Models {
 
             return '?';
         }
+
+        public override string ToString() {
+            return "Mono Alpha";
+        }
     }
 }

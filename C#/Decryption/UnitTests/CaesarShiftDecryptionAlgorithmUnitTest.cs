@@ -52,5 +52,10 @@ namespace DecryptionUnitTests {
 
             Assert.AreEqual(decryptedSentence, newTarget.DecryptText(encryptedSentence));
         }
+
+        [TestMethod]
+        public void ShouldReturnCorrectNameOnToString() {
+            Assert.AreEqual("Caesar", target.ToString());
+        }
     }
 }

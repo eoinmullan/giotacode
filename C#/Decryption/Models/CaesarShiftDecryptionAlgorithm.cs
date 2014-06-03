@@ -30,5 +30,9 @@ namespace Decryption.Models {
 
             return character;
         }
+
+        public override string ToString() {
+            return "Caesar";
+        }
     }
 }

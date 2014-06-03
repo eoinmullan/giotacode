@@ -59,5 +59,10 @@ namespace DecryptionUnitTests {
 
             Assert.AreEqual("Secret Message", newTarget.DecryptText("68,69,73,186,190,99,0,103,173,168,100,65,77,173"));
         }
+
+        [TestMethod]
+        public void ShouldReturnCorrectNameOnToString() {
+            Assert.AreEqual("XOR", target.ToString());
+        }
     }
 }

@@ -48,5 +48,10 @@ namespace DecryptionUnitTests {
             Assert.AreEqual("bc?", target.DecryptText("abc"));
             Assert.AreEqual("?cb", target.DecryptText("cba"));
         }
+
+        [TestMethod]
+        public void ShouldReturnCorrectNameOnToString() {
+            Assert.AreEqual("Mono Alpha", target.ToString());
+        }
     }
 }

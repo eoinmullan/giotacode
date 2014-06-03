@@ -23,5 +23,9 @@ namespace Decryption.Models {
 
             return String.Concat(encryptedText.Split(',').Select((x, i) => (char)(Int32.Parse(x) ^ Key[i % Key.Length])));
         }
+
+        public override string ToString() {
+            return "XOR";
+        }
     }
 }
