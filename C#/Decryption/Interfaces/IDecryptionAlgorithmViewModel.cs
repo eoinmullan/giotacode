@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Decryption.Interfaces {
-    internal interface IDecryptionAlgorithm {
-        event EventHandler EncryptionChanged;
-
-        string DecryptText(string encryptedText);
+    public interface IDecryptionAlgorithmViewModel {
+        //bool Visible { get; set; }
     }
 }

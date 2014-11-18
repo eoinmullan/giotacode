@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Decryption.ViewModels;
+using Decryption.Interfaces;
 using Decryption.Models;
+using Decryption.ViewModels;
 
 namespace Decryption {
     /// <summary>
@@ -23,11 +24,12 @@ namespace Decryption {
         public MainWindow() {
             InitializeComponent();
 
-            var caesarShiftAlgorithm = new CaesarShiftDecryptionAlgorithm();
-            var xorAlgorithm = new XORDecryptionAlgorithm();
-            var monoAlphaAlgorithm = new MonoAlphaSubDecryptionAlgorithm();
+            IDecryptionAlgorithm caesarShiftAlgorithm = new CaesarShiftDecryptionAlgorithm();
+            IDecryptionAlgorithmViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm as CaesarShiftDecryptionAlgorithm);
+            IDecryptionAlgorithm xorAlgorithm = new XORDecryptionAlgorithm();
+            IDecryptionAlgorithm monoAlphaAlgorithm = new MonoAlphaSubDecryptionAlgorithm();
 
-            DataContext = new DecrypterViewModel(caesarShiftAlgorithm, xorAlgorithm, monoAlphaAlgorithm);
+            DataContext = new DecrypterViewModel(Tuple.Create(caesarShiftAlgorithm, caesarShiftViemModel));
         }
     }
 }

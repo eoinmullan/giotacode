@@ -4,10 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Decryption.Interfaces;
+using System.ComponentModel;
 
 namespace Decryption.Models {
-    internal class CaesarShiftDecryptionAlgorithm : IDecryptionAlgorithm {
-        public int Key { get; set; }
+    public class CaesarShiftDecryptionAlgorithm : IDecryptionAlgorithm {
+        public event EventHandler EncryptionChanged;
+
+        private int key;
+        public int Key {
+            get {
+                return key;
+            }
+            set {
+                key = value;
+                if (EncryptionChanged != null) {
+                    EncryptionChanged(this, new EventArgs());
+                }
+            }
+        }
 
         public CaesarShiftDecryptionAlgorithm() : this(0) { 
         }

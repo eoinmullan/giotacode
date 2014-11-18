@@ -7,6 +7,7 @@ using Decryption.Interfaces;
 
 namespace Decryption.Models {
     internal class XORDecryptionAlgorithm : IDecryptionAlgorithm {
+        public event EventHandler EncryptionChanged;
         public byte[] Key { get; set; }
 
         public XORDecryptionAlgorithm() : this(0) {

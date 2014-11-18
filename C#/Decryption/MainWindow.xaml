@@ -1,7 +1,8 @@
 ﻿<Window x:Class="Decryption.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:loc="clr-namespace:Decryption.Views"
+        Title="MainWindow" Height="350" Width="525" Background="PaleGreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -14,7 +15,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <ListBox ItemsSource="{Binding DecryptionAlgorithms}" Name="MyListBox" SelectedItem="{Binding DecryptionAlgorithm}">
+            <ListBox ItemsSource="{Binding DecryptionAlgorithms}" Name="MyListBox"
+                     SelectedItem="{Binding DecryptionAlgorithm}" >
                 <ListBox.Resources>
                     <ControlTemplate x:Key="ListBoxItem" TargetType="ListBoxItem">
                         <StackPanel>
@@ -42,6 +44,9 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Grid Grid.Column="1" Name="DecryptionUserControl">
+                <loc:CaesarShiftSetupView DataContext="{Binding DecryptionAlgorithmViewModel, Mode=TwoWay}"/>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -50,7 +55,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Encrypted Text" />
+            <Label Grid.Row="0" Content="Binding " />
             <TextBox Grid.Row="1" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto">
                 <TextBox.Text>
                     <Binding Path="EncryptedText" UpdateSourceTrigger="PropertyChanged"/>

@@ -7,6 +7,7 @@ using Decryption.Interfaces;
 
 namespace Decryption.Models {
     internal class MonoAlphaSubDecryptionAlgorithm : IDecryptionAlgorithm {
+        public event EventHandler EncryptionChanged;
         IDictionary<char, char> pairs;
 
         public MonoAlphaSubDecryptionAlgorithm() {
