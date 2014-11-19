@@ -17,13 +17,13 @@ namespace Decryption.ViewModels {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string encryptedText = "";
+        private IEncryptedText encryptedText;
         public string EncryptedText {
             get {
-                return encryptedText;
+                return encryptedText.Text;
             }
             set {
-                encryptedText = value;
+                encryptedText.Text = value;
                 OnPropertyChanged("EncryptedText");
                 OnPropertyChanged("DecryptedText");
             }
@@ -31,7 +31,7 @@ namespace Decryption.ViewModels {
 
         public string DecryptedText {
             get {
-                return DecryptionAlgorithm.DecryptText(encryptedText);
+                return DecryptionAlgorithm.DecryptText(EncryptedText);
             }
         }
 
@@ -60,7 +60,8 @@ namespace Decryption.ViewModels {
             }
         }
 
-        public DecrypterViewModel(params Tuple<IDecryptionAlgorithm, IDecryptionAlgorithmViewModel>[] decryptionAlgorithmsVMPairs) {
+        public DecrypterViewModel(IEncryptedText encryptedText, params Tuple<IDecryptionAlgorithm, IDecryptionAlgorithmViewModel>[] decryptionAlgorithmsVMPairs) {
+            this.encryptedText = encryptedText;
             DecryptionAlgorithms = new List<IDecryptionAlgorithm>();
             DecryptionAlgorithmViewModels = new List<IDecryptionAlgorithmViewModel>();
             foreach (var decryptionAlgorithmVMPair in decryptionAlgorithmsVMPairs) {
@@ -68,8 +69,8 @@ namespace Decryption.ViewModels {
                 DecryptionAlgorithmViewModels.Add(decryptionAlgorithmVMPair.Item2);
             }
 
-            DecryptionAlgorithm = DecryptionAlgorithms[0];
-            DecryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[0];
+            DecryptionAlgorithm = DecryptionAlgorithms[1];
+            DecryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[1];
             decryptionAlgorithm.EncryptionChanged += (s, e) => OnPropertyChanged("DecryptedText");
         }
 

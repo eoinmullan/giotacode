@@ -7,7 +7,7 @@ using Decryption.Interfaces;
 using System.Runtime.CompilerServices;
 
 namespace Decryption.Models {
-    internal class EncryptedText : IEncryptedText {
+    public class EncryptedText : IEncryptedText {
         public string Text { get; set; }
     }
 }

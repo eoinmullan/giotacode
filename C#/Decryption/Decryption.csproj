@@ -57,8 +57,13 @@
     <Compile Include="Interfaces\IDecryptionAlgorithmViewModel.cs" />
     <Compile Include="ViewModels\CaesarShiftSetupViewModel.cs" />
     <Compile Include="ViewModels\DecrypterViewModel.cs" />
+    <Compile Include="Common\ModelBase.cs" />
+    <Compile Include="ViewModels\XORSetupViewModel.cs" />
     <Compile Include="Views\CaesarShiftSetupView.xaml.cs">
       <DependentUpon>CaesarShiftSetupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XORSetupView.xaml.cs">
+      <DependentUpon>XORSetupView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +82,10 @@
     <Page Include="Views\CaesarShiftSetupView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\XORSetupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

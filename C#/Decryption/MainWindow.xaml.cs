@@ -24,12 +24,17 @@ namespace Decryption {
         public MainWindow() {
             InitializeComponent();
 
+            IEncryptedText encryptedText = new EncryptedText();
             IDecryptionAlgorithm caesarShiftAlgorithm = new CaesarShiftDecryptionAlgorithm();
             IDecryptionAlgorithmViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm as CaesarShiftDecryptionAlgorithm);
-            IDecryptionAlgorithm xorAlgorithm = new XORDecryptionAlgorithm();
+            IDecryptionAlgorithm xorAlgorithm = new XORDecryptionAlgorithm(encryptedText);
+            IDecryptionAlgorithmViewModel xorViewModel = new XORSetupViewModel(xorAlgorithm as XORDecryptionAlgorithm);
             IDecryptionAlgorithm monoAlphaAlgorithm = new MonoAlphaSubDecryptionAlgorithm();
 
-            DataContext = new DecrypterViewModel(Tuple.Create(caesarShiftAlgorithm, caesarShiftViemModel));
+            DataContext = new DecrypterViewModel(
+                encryptedText,
+                Tuple.Create(caesarShiftAlgorithm, caesarShiftViemModel),
+                Tuple.Create(xorAlgorithm, xorViewModel));
         }
     }
 }

@@ -6,7 +6,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
              mc:Ignorable="d" >
     
-    <StackPanel Grid.Column="1" Orientation="Horizontal">
+    <StackPanel Orientation="Horizontal">
         <Label Content="Shift: " Height="30" />
         <TextBox Width="50" Height="30" Margin="2" Text="{Binding Path=Shift, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <StackPanel Orientation="Vertical">

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Decryption.Interfaces {
-    internal interface IEncryptedText {
+    public interface IEncryptedText {
         string Text { get; set; }
     }
 }
