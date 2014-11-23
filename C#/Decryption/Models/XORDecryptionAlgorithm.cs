@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using Decryption.Interfaces;
 using Decryption.ViewModels;
 
@@ -11,8 +14,12 @@ namespace Decryption.Models {
     public class XORDecryptionAlgorithm : ModelBase, IDecryptionAlgorithm {
         public event EventHandler EncryptionChanged;
         public event EventHandler KeyChanged;
-        private IEncryptedText encryptedText;
-        private byte[] ByteArrayForError = new byte[5] { 69, 114, 114, 111, 114 };
+        private readonly IEncryptedText encryptedText;
+        private readonly ITextChecker textChecker;
+        private readonly IXORKeyFinderFactory xorKeyFinderFactory;
+
+        private byte LowerKeyBound { get; set; }
+        private byte UpperKeyBound { get; set; }
 
         private byte[] key;
         public byte[] Key {
@@ -20,77 +27,63 @@ namespace Decryption.Models {
                 return key;
             }
             set {
-                key = value;
-                RaiseKeyChanged();
-                if (EncryptionChanged != null) {
-                    EncryptionChanged(this, new EventArgs());
+                if (value.Count() == 0) {
+                    key = new byte[] { 0 };
                 }
+                else {
+                    key = value;
+                }
+
+                RaiseKeyChanged();
+                RaiseEncryptionChanged();
             }
         }
 
-        public XORDecryptionAlgorithm(IEncryptedText encryptedText) :
-            this(encryptedText, 0) {
-        }
-
-        public XORDecryptionAlgorithm(IEncryptedText encryptedText, params byte[] key) {
+        public XORDecryptionAlgorithm(
+            IEncryptedText encryptedText,
+            ITextChecker textChecker,
+            IXORKeyFinderFactory xorKeyFinderFactory,
+            params byte[] key) {
             this.encryptedText = encryptedText;
+            this.textChecker = textChecker;
+            this.xorKeyFinderFactory = xorKeyFinderFactory;
             Key = key;
         }
 
         public string DecryptText(string encryptedText) {
-            if (encryptedText == null || encryptedText.Equals(string.Empty) || Key.Length == 0) {
+            if (encryptedText == null || encryptedText.Equals(string.Empty)) {
                 return string.Empty;
             }
 
-            return String.Concat(encryptedText.Split(',').Select((x, i) => (char)(Int32.Parse(x) ^ Key[i % Key.Length])));
+            if (!IsEncryptedTextValid(encryptedText)) {
+                return Properties.Resources.InvalidInput;
+            }
+
+            return String.Concat(encryptedText.Split(',').Where(x => !x.Equals(string.Empty)).Select((x, i) => (char)(Int32.Parse(x) ^ Key[i % Key.Length])));
         }
 
         public override string ToString() {
             return "XOR";
         }
 
-        public void FindKey() {
-            Task.Factory.StartNew(() => {
-                if (!KeyHasThreeLowerCaseCharacters()) {
-                    Key = ByteArrayForError;
-                    return;
-                }
-
-                IncrementKey();
-                while (!DecryptText(encryptedText.Text).Contains("uler")) {
-                    IncrementKey();
-                }
-            });
+        public async void FindKey(byte lowerBound, byte upperBound, params string[] wordsToFind) {
+            var xorKeyFinder = xorKeyFinderFactory.Create(encryptedText, textChecker, lowerBound, upperBound, wordsToFind);
+            Key = await xorKeyFinder.FindNextKeyAsync(key, DecryptText, x => Key = x);
         }
 
-        private bool KeyHasThreeLowerCaseCharacters() {
-            if (Key.Length != 3) {
-                return false;
-            }
-
-            return Key.All(x => x >= 97 && x <= 122);
-        }
-
-        private void IncrementKey() {
-            if (Key[2] < 122) {
-                Key[2]++;
-            }
-            else {
-                Key[2] = 97;
-                if (Key[1] < 122) {
-                    Key[1]++;
-                }
-                else {
-                    Key[1] = 97;
-                    Key[0]++;
-                }
-            }
-            Key = key;
+        private bool IsEncryptedTextValid(string text) {
+            return text.All(x => Char.IsDigit(x) || x == ',');
         }
 
         private void RaiseKeyChanged() {
             if (KeyChanged != null) {
                 KeyChanged(this, new EventArgs());
+            }
+        }
+
+        private void RaiseEncryptionChanged() {
+            if (EncryptionChanged != null) {
+                EncryptionChanged(this, new EventArgs());
             }
         }
     }

@@ -7,6 +7,25 @@
     <StackPanel Orientation="Horizontal">
         <Label Content="Key: " Height="30" />
         <TextBox Width="50" Height="30" Margin="2" Text="{Binding Path=Key, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Content="Find Key" Command="{Binding FindKeyCommand}" />
+        <Button Content="Find Key" Height="30" Command="{Binding FindKeyCommand}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Auto find key limits" Grid.ColumnSpan="3" />
+            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Path=KeyAutoSearchLowerBound}" Margin="15,0,0,0" Height="22" VerticalAlignment="Top" />
+            <Label Grid.Row="1" Grid.Column="1" Content="-" HorizontalAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=KeyAutoSearchUpperBound}" Margin="0,0,15,0" Height="22" VerticalAlignment="Top" />
+        </Grid>
+        <StackPanel Orientation="Vertical">
+            <Label Content="Words to find (comma separated)" />
+            <TextBox Text="{Binding Path=WordsToFind}" Margin="10" Height="22" VerticalAlignment="Top" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

@@ -54,7 +54,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\SimpleDelegateCommand.cs" />
+    <Compile Include="Common\TextChecker.cs" />
+    <Compile Include="Common\XORKeyFinderFactory.cs" />
     <Compile Include="Interfaces\IDecryptionAlgorithmViewModel.cs" />
+    <Compile Include="Interfaces\ITextChecker.cs" />
+    <Compile Include="Interfaces\IXORKeyFinder.cs" />
+    <Compile Include="Interfaces\IXORKeyFinderFactory.cs" />
     <Compile Include="ViewModels\CaesarShiftSetupViewModel.cs" />
     <Compile Include="ViewModels\DecrypterViewModel.cs" />
     <Compile Include="Common\ModelBase.cs" />
@@ -65,6 +70,7 @@
     <Compile Include="Views\XORSetupView.xaml.cs">
       <DependentUpon>XORSetupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\XORKeyFinder.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -17,6 +17,9 @@ namespace Decryption.ViewModels {
             this.algorithm = algorithm;
             FindKeyCommand = new SimpleDelegateCommand(FindKey);
             algorithm.KeyChanged += HandleKeyChanged;
+            KeyAutoSearchLowerBound = 97;
+            KeyAutoSearchUpperBound = 122;
+            WordsToFind = string.Empty;
         }
 
         void HandleKeyChanged(object sender, EventArgs e) {
@@ -33,8 +36,12 @@ namespace Decryption.ViewModels {
             }
         }
 
+        public byte KeyAutoSearchLowerBound { get; set; }
+        public byte KeyAutoSearchUpperBound { get; set; }
+        public string WordsToFind { get; set; }
+
         private void FindKey() {
-            algorithm.FindKey();
+            algorithm.FindKey(KeyAutoSearchLowerBound, KeyAutoSearchUpperBound, WordsToFind.Replace(" ", string.Empty).Split(','));
         }
     }
 }

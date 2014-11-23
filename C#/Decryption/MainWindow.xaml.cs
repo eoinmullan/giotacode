@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Decryption.Interfaces;
 using Decryption.Models;
+using Decryption.Common;
 using Decryption.ViewModels;
 
 namespace Decryption {
@@ -25,9 +26,11 @@ namespace Decryption {
             InitializeComponent();
 
             IEncryptedText encryptedText = new EncryptedText();
+            ITextChecker textChecker = new TextChecker();
+            IXORKeyFinderFactory xorKeyFinderFactory = new XORKeyFinderFactory();
             IDecryptionAlgorithm caesarShiftAlgorithm = new CaesarShiftDecryptionAlgorithm();
             IDecryptionAlgorithmViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm as CaesarShiftDecryptionAlgorithm);
-            IDecryptionAlgorithm xorAlgorithm = new XORDecryptionAlgorithm(encryptedText);
+            IDecryptionAlgorithm xorAlgorithm = new XORDecryptionAlgorithm(encryptedText, textChecker, xorKeyFinderFactory);
             IDecryptionAlgorithmViewModel xorViewModel = new XORSetupViewModel(xorAlgorithm as XORDecryptionAlgorithm);
             IDecryptionAlgorithm monoAlphaAlgorithm = new MonoAlphaSubDecryptionAlgorithm();
 
