@@ -25,13 +25,16 @@ namespace DecryptionUnitTests {
         }
 
         [TestMethod]
-        public void ShouldConvertASCIICodesToCharactersWhenKeyIsNotSet() {
+        public void ShouldConvertASCIICodesToUpperCaseCharactersWhenKeyIsNotSet() {
             var upperCaseASCIICodes = Enumerable.Range(65, 26);
             var upperCaseAlphabet = String.Concat(upperCaseASCIICodes.Select(x => (char)x));
             var commaSeperatedUpperCaseASCIICodes = string.Join(",", upperCaseASCIICodes);
             Assert.AreEqual(upperCaseAlphabet, target.DecryptText(commaSeperatedUpperCaseASCIICodes));
+        }
 
-            var lowerCaseASCIICodes = Enumerable.Range(65, 26);
+        [TestMethod]
+        public void ShouldConvertASCIICodesToLowerCaseCharactersWhenKeyIsNotSet() {
+            var lowerCaseASCIICodes = Enumerable.Range(97, 122);
             var lowerCaseAlphabet = String.Concat(lowerCaseASCIICodes.Select(x => (char)x));
             var commaSeperatedLowerCaseASCIICodes = string.Join(",", lowerCaseASCIICodes);
             Assert.AreEqual(lowerCaseAlphabet, target.DecryptText(commaSeperatedLowerCaseASCIICodes));
