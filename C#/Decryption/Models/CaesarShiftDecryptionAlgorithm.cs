@@ -31,6 +31,10 @@ namespace Decryption.Models {
         }
 
         public string DecryptText(string encryptedText) {
+            if (encryptedText == null || encryptedText.Equals(string.Empty)) {
+                return string.Empty;
+            }
+
             return String.Concat(encryptedText.Select(x => ShiftCharacter(x)));
         }
 

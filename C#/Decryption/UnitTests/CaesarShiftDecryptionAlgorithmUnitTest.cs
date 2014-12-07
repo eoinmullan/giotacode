@@ -13,8 +13,13 @@ namespace DecryptionUnitTests {
         }
 
         [TestMethod]
-        public void ShouldHandleEmptyString() {
+        public void ShouldHandleEmptyStringInput() {
             Assert.AreEqual("", target.DecryptText(""));
+        }
+
+        [TestMethod]
+        public void ShouldHandleNullStringInput() {
+            Assert.AreEqual("", target.DecryptText(null));
         }
 
         [TestMethod]
