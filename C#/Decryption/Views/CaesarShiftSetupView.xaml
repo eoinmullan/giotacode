@@ -9,7 +9,7 @@
     <StackPanel Orientation="Horizontal">
         <Label Content="Shift: " Height="30" />
         <TextBox Width="50" Height="30" Margin="2" Text="{Binding Path=Shift, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Margin="0,14" >
             <Button Content="˄" Width="20" Height="20" Command="{Binding ShiftUpCommand}"/>
             <Button Content="˅" Width="20" Height="20" Command="{Binding ShiftDownCommand}" />
         </StackPanel>

@@ -22,7 +22,8 @@
             </Grid.ColumnDefinitions>
             
             <ListBox ItemsSource="{Binding DecryptionAlgorithms}" Name="MyListBox"
-                     SelectedItem="{Binding DecryptionAlgorithm}" >
+                     SelectedItem="{Binding DecryptionAlgorithm}"
+                     Margin="0,10">
                 <ListBox.Resources>
                     <ControlTemplate x:Key="ListBoxItem" TargetType="ListBoxItem">
                         <StackPanel>
