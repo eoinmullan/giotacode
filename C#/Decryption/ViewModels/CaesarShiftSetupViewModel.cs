@@ -29,5 +29,11 @@ namespace Decryption.ViewModels {
                 OnPropertyChanged("Shift");
             }
         }
+
+        public string Name {
+            get {
+                return algorithm.ToString();
+            }
+        }
     }
 }

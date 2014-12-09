@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Decryption.Interfaces {
     public interface IDecryptionAlgorithmViewModel {
-        //bool Visible { get; set; }
+        string Name { get; }
     }
 }

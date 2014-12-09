@@ -36,6 +36,12 @@ namespace Decryption.ViewModels {
             }
         }
 
+        public string Name {
+            get {
+                return algorithm.ToString();
+            }
+        }
+
         public byte KeyAutoSearchLowerBound { get; set; }
         public byte KeyAutoSearchUpperBound { get; set; }
         public string WordsToFind { get; set; }

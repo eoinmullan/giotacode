@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\SelectedDecryptionAlgorithmToVisiblityConverter.cs" />
     <Compile Include="Common\SimpleDelegateCommand.cs" />
     <Compile Include="Common\TextChecker.cs" />
     <Compile Include="Common\XORKeyFinderFactory.cs" />

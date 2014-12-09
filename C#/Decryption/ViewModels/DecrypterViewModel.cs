@@ -44,6 +44,7 @@ namespace Decryption.ViewModels {
                 return decryptionAlgorithm;
             }
             set {
+                decryptionAlgorithm.EncryptionChanged -= HandleEncryptionChanged;
                 decryptionAlgorithm = value;
                 SetViewModel(decryptionAlgorithm);
             }
@@ -57,6 +58,13 @@ namespace Decryption.ViewModels {
             set {
                 decryptionAlgorithmViewModel = value;
                 OnPropertyChanged("DecryptionAlgorithmViewModel");
+                OnPropertyChanged("DecryptedText");
+            }
+        }
+
+        public string ActiveAlgorithmName {
+            get {
+                return DecryptionAlgorithm.ToString();
             }
         }
 
@@ -69,13 +77,19 @@ namespace Decryption.ViewModels {
                 DecryptionAlgorithmViewModels.Add(decryptionAlgorithmVMPair.Item2);
             }
 
-            DecryptionAlgorithm = DecryptionAlgorithms[1];
-            DecryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[1];
-            decryptionAlgorithm.EncryptionChanged += (s, e) => OnPropertyChanged("DecryptedText");
+            decryptionAlgorithm = DecryptionAlgorithms[0];
+            decryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[0];
+            decryptionAlgorithm.EncryptionChanged += HandleEncryptionChanged;
         }
 
         void SetViewModel(IDecryptionAlgorithm decryptionAlgorithm) {
             var decryptionAlgorithmIndex = DecryptionAlgorithms.FindIndex(x => x == decryptionAlgorithm);
+            DecryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[decryptionAlgorithmIndex];
+            DecryptionAlgorithm.EncryptionChanged += HandleEncryptionChanged;
+        }
+
+        private void HandleEncryptionChanged(object sender, EventArgs e) {
+            OnPropertyChanged("DecryptedText");
         }
     }
 }
