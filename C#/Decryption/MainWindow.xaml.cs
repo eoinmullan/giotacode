@@ -29,9 +29,9 @@ namespace Decryption {
             ITextChecker textChecker = new TextChecker();
             IXORKeyFinderFactory xorKeyFinderFactory = new XORKeyFinderFactory();
             IDecryptionAlgorithm caesarShiftAlgorithm = new CaesarShiftDecryptionAlgorithm();
-            IDecryptionAlgorithmViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm as CaesarShiftDecryptionAlgorithm);
+            IDecryptionAlgorithmViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm as CaesarShiftDecryptionAlgorithm, encryptedText);
             IDecryptionAlgorithm xorAlgorithm = new XORDecryptionAlgorithm(encryptedText, textChecker, xorKeyFinderFactory);
-            IDecryptionAlgorithmViewModel xorViewModel = new XORSetupViewModel(xorAlgorithm as XORDecryptionAlgorithm);
+            IDecryptionAlgorithmViewModel xorViewModel = new XORSetupViewModel(xorAlgorithm as XORDecryptionAlgorithm, encryptedText);
             IDecryptionAlgorithm monoAlphaAlgorithm = new MonoAlphaSubDecryptionAlgorithm();
 
             DataContext = new DecrypterViewModel(

@@ -27,5 +27,6 @@
             <Label Content="Words to find (comma separated)" />
             <TextBox Text="{Binding Path=WordsToFind}" Margin="10" Height="22" VerticalAlignment="Top" />
         </StackPanel>
+        <Button Content="Load sample" Height="30" Command="{Binding LoadSampleTextCommand}" Margin="5" />
     </StackPanel>
 </UserControl>

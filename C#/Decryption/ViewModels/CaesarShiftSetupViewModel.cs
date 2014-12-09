@@ -11,13 +11,17 @@ using Decryption.Models;
 namespace Decryption.ViewModels {
     public class CaesarShiftSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
         private CaesarShiftDecryptionAlgorithm algorithm;
+        private IEncryptedText encryptedText;
         public ICommand ShiftUpCommand { get; private set; }
         public ICommand ShiftDownCommand { get; private set; }
+        public ICommand LoadSampleTextCommand { get; private set; }
 
-        public CaesarShiftSetupViewModel(CaesarShiftDecryptionAlgorithm algorithm) {
+        public CaesarShiftSetupViewModel(CaesarShiftDecryptionAlgorithm algorithm, IEncryptedText encryptedText) {
             this.algorithm = algorithm;
+            this.encryptedText = encryptedText;
             ShiftUpCommand = new SimpleDelegateCommand(() => Shift++);
             ShiftDownCommand = new SimpleDelegateCommand(() => Shift--);
+            LoadSampleTextCommand = new SimpleDelegateCommand(LoadSampleText);
         }
 
         public int Shift {
@@ -34,6 +38,10 @@ namespace Decryption.ViewModels {
             get {
                 return algorithm.ToString();
             }
+        }
+
+        private void LoadSampleText() {
+            encryptedText.Text = Properties.Resources.SampleCaesarText;
         }
     }
 }

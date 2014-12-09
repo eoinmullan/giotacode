@@ -13,5 +13,6 @@
             <Button Content="˄" Width="20" Height="20" Command="{Binding ShiftUpCommand}"/>
             <Button Content="˅" Width="20" Height="20" Command="{Binding ShiftDownCommand}" />
         </StackPanel>
+        <Button Content="Load sample" Height="30" Command="{Binding LoadSampleTextCommand}" Margin="15,0" />
     </StackPanel>
 </UserControl>

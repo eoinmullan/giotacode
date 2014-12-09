@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Decryption.ViewModels {
+namespace Decryption.Common {
     public class ModelBase : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
 

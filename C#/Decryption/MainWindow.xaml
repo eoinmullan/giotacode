@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:Decryption.Views"
         xmlns:common="clr-namespace:Decryption.Common"
-        Title="MainWindow" Height="350" Width="550" Background="PaleGreen">
+        Title="MainWindow" Height="350" Width="630" Background="PaleGreen">
     
     <Window.Resources>
         <common:SelectedDecryptionAlgorithmToVisiblityConverter x:Key="selectedDecryptionAlgorithmToVisibilityConverter" />

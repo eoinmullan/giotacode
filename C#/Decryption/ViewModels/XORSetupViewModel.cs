@@ -11,11 +11,15 @@ using Decryption.Models;
 namespace Decryption.ViewModels {
     public class XORSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
         private readonly XORDecryptionAlgorithm algorithm;
+        private readonly IEncryptedText encryptedText;
         public ICommand FindKeyCommand { get; private set; }
+        public ICommand LoadSampleTextCommand { get; private set; }
 
-        public XORSetupViewModel(XORDecryptionAlgorithm algorithm) {
+        public XORSetupViewModel(XORDecryptionAlgorithm algorithm, IEncryptedText encryptedText) {
             this.algorithm = algorithm;
+            this.encryptedText = encryptedText;
             FindKeyCommand = new SimpleDelegateCommand(FindKey);
+            LoadSampleTextCommand = new SimpleDelegateCommand(LoadSampleText);
             algorithm.KeyChanged += HandleKeyChanged;
             KeyAutoSearchLowerBound = 97;
             KeyAutoSearchUpperBound = 122;
@@ -48,6 +52,10 @@ namespace Decryption.ViewModels {
 
         private void FindKey() {
             algorithm.FindKey(KeyAutoSearchLowerBound, KeyAutoSearchUpperBound, WordsToFind.Replace(" ", string.Empty).Split(','));
+        }
+
+        private void LoadSampleText() {
+            encryptedText.Text = Properties.Resources.SampleXORText;
         }
     }
 }

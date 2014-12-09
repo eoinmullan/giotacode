@@ -7,15 +7,11 @@ using Decryption.Interfaces;
 using System.ComponentModel;
 using System.Windows.Data;
 using Decryption;
+using Decryption.Common;
 
 namespace Decryption.ViewModels {
-    internal class DecrypterViewModel : INotifyPropertyChanged {
+    internal class DecrypterViewModel : ModelBase {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName) {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         private IEncryptedText encryptedText;
         public string EncryptedText {
@@ -77,12 +73,19 @@ namespace Decryption.ViewModels {
                 DecryptionAlgorithmViewModels.Add(decryptionAlgorithmVMPair.Item2);
             }
 
+            encryptedText.PropertyChanged += encryptedText_PropertyChanged;
             decryptionAlgorithm = DecryptionAlgorithms[0];
             decryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[0];
             decryptionAlgorithm.EncryptionChanged += HandleEncryptionChanged;
         }
 
-        void SetViewModel(IDecryptionAlgorithm decryptionAlgorithm) {
+        private void encryptedText_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName == "Text") {
+                OnPropertyChanged("EncryptedText");
+            }
+        }
+
+        private void SetViewModel(IDecryptionAlgorithm decryptionAlgorithm) {
             var decryptionAlgorithmIndex = DecryptionAlgorithms.FindIndex(x => x == decryptionAlgorithm);
             DecryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[decryptionAlgorithmIndex];
             DecryptionAlgorithm.EncryptionChanged += HandleEncryptionChanged;

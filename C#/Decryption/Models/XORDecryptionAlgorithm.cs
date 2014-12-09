@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Decryption.Common;
 using Decryption.Interfaces;
 using Decryption.ViewModels;
 

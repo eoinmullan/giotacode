@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Decryption.Common;
 using Decryption.Interfaces;
-using System.Runtime.CompilerServices;
 
 namespace Decryption.Models {
-    public class EncryptedText : IEncryptedText {
-        public string Text { get; set; }
+    public class EncryptedText : ModelBase, IEncryptedText {
+        private string text;
+        public string Text {
+            get {
+                return text;
+            }
+            set {
+                text = value;
+                OnPropertyChanged("Text");
+            }
+        }
     }
 }
