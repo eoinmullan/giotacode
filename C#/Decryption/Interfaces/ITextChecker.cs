@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Decryption.Interfaces {
-    public interface ITextChecker {
+    public interface ITextHelper {
         bool ContainsAll(string inputText, params string[] wordsToCheck);
     }
 }

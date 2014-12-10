@@ -7,7 +7,7 @@ using Decryption.Common;
 using Decryption.Interfaces;
 
 namespace Decryption.Models {
-    public class EncryptedText : ModelBase, IText {
+    public class DecryptedText : ModelBase, IText {
         private string text;
         public string Text {
             get {

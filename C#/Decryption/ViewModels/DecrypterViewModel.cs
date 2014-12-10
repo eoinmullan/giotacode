@@ -11,7 +11,7 @@ using Decryption.Common;
 
 namespace Decryption.ViewModels {
     internal class DecrypterViewModel : ModelBase {
-        private IEncryptedText encryptedText;
+        private IText encryptedText;
         public string EncryptedText {
             get {
                 return encryptedText.Text;
@@ -62,7 +62,7 @@ namespace Decryption.ViewModels {
             }
         }
 
-        public DecrypterViewModel(IEncryptedText encryptedText, params Tuple<IDecryptionAlgorithm, IDecryptionAlgorithmViewModel>[] decryptionAlgorithmsVMPairs) {
+        public DecrypterViewModel(IText encryptedText, params Tuple<IDecryptionAlgorithm, IDecryptionAlgorithmViewModel>[] decryptionAlgorithmsVMPairs) {
             this.encryptedText = encryptedText;
             DecryptionAlgorithms = new List<IDecryptionAlgorithm>();
             DecryptionAlgorithmViewModels = new List<IDecryptionAlgorithmViewModel>();

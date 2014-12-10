@@ -5,13 +5,13 @@ using Decryption.Common;
 namespace DecryptionUnitTests {
     [TestClass]
     public class TextCheckerUnitTest {
-        private TextChecker target;
+        private TextHelper target;
 
         private string testText = "Fiddle tune call the band simple melancholy melody";
 
         [TestInitialize]
         public void Initialize() {
-            target = new TextChecker();
+            target = new TextHelper();
         }
 
         [TestMethod]

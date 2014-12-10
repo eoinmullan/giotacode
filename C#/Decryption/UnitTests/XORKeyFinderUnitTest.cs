@@ -13,8 +13,8 @@ namespace DecryptionUnitTests {
     public class XORKeyFinderUnitTest {
         private XORKeyFinder target;
 
-        private IEncryptedText encryptedText;
-        private ITextChecker textChecker;
+        private IText encryptedText;
+        private ITextHelper textChecker;
         private byte lowerKeyBound = 10;
         private byte upperKeyBound = 20;
         private string[] wordsToFind;
@@ -26,8 +26,8 @@ namespace DecryptionUnitTests {
 
         [TestInitialize]
         public void Initialize() {
-            encryptedText = MockRepository.GenerateMock<IEncryptedText>();
-            textChecker = MockRepository.GenerateMock<ITextChecker>();
+            encryptedText = MockRepository.GenerateMock<IText>();
+            textChecker = MockRepository.GenerateMock<ITextHelper>();
             wordsToFind = new string[] { "one", "two", "three" };
             testKey = new byte[] { 10, 10, 10 };
             keysTried = new List<byte[]>();

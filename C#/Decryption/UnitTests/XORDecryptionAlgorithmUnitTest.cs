@@ -11,14 +11,14 @@ namespace DecryptionUnitTests {
     public class XORDecryptionAlgorithmUnitTest {
         private XORDecryptionAlgorithm target;
 
-        private IEncryptedText encryptedText;
-        private ITextChecker textChecker;
+        private IText encryptedText;
+        private ITextHelper textChecker;
         private IXORKeyFinderFactory xorKeyFinderFactory;
 
         [TestInitialize]
         public void Initialize() {
-            encryptedText = MockRepository.GenerateMock<IEncryptedText>();
-            textChecker = MockRepository.GenerateMock<ITextChecker>();
+            encryptedText = MockRepository.GenerateMock<IText>();
+            textChecker = MockRepository.GenerateMock<ITextHelper>();
             xorKeyFinderFactory = MockRepository.GenerateMock<IXORKeyFinderFactory>();
 
             target = new XORDecryptionAlgorithm(encryptedText, textChecker, xorKeyFinderFactory);

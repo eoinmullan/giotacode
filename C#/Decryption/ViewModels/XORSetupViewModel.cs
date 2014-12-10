@@ -11,11 +11,11 @@ using Decryption.Models;
 namespace Decryption.ViewModels {
     internal class XORSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
         private readonly XORDecryptionAlgorithm algorithm;
-        private readonly IEncryptedText encryptedText;
+        private readonly IText encryptedText;
         public ICommand FindKeyCommand { get; private set; }
         public ICommand LoadSampleTextCommand { get; private set; }
 
-        public XORSetupViewModel(XORDecryptionAlgorithm algorithm, IEncryptedText encryptedText) {
+        public XORSetupViewModel(XORDecryptionAlgorithm algorithm, IText encryptedText) {
             this.algorithm = algorithm;
             this.encryptedText = encryptedText;
             FindKeyCommand = new SimpleDelegateCommand(FindKey);

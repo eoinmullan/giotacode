@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace Decryption.Interfaces {
-    public interface IEncryptedText : INotifyPropertyChanged {
+    public interface IText : INotifyPropertyChanged {
         string Text { get; set; }
     }
 }

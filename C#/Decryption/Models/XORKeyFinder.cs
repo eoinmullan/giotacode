@@ -7,13 +7,13 @@ using Decryption.Interfaces;
 
 namespace Decryption.Models {
     public class XORKeyFinder : IXORKeyFinder {
-        private readonly IEncryptedText encryptedText;
-        private readonly ITextChecker textChecker;
+        private readonly IText encryptedText;
+        private readonly ITextHelper textChecker;
         private readonly byte lowerKeyBound;
         private readonly byte upperKeyBound;
         private readonly string[] wordsToFind;
 
-        public XORKeyFinder (IEncryptedText encryptedText, ITextChecker textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind) {
+        public XORKeyFinder(IText encryptedText, ITextHelper textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind) {
             this.encryptedText = encryptedText;
             this.textChecker = textChecker;
             this.lowerKeyBound = lowerKeyBound;

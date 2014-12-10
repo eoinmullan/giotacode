@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Decryption.Interfaces;
 
 namespace Decryption.Common {
-    public class TextChecker : ITextChecker {
+    public class TextHelper : ITextHelper {
         public bool ContainsAll(string inputText, params string[] wordsToCheck) {
             return wordsToCheck.All(x => inputText.Contains(x));
         }

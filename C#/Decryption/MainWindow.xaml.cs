@@ -25,8 +25,8 @@ namespace Decryption {
         public MainWindow() {
             InitializeComponent();
 
-            IEncryptedText encryptedText = new EncryptedText();
-            ITextChecker textChecker = new TextChecker();
+            IText encryptedText = new EncryptedText();
+            ITextHelper textChecker = new TextHelper();
             IXORKeyFinderFactory xorKeyFinderFactory = new XORKeyFinderFactory();
             IDecryptionAlgorithm caesarShiftAlgorithm = new CaesarShiftDecryptionAlgorithm();
             IDecryptionAlgorithmViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm as CaesarShiftDecryptionAlgorithm, encryptedText);

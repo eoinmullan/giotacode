@@ -14,8 +14,8 @@ using Decryption.ViewModels;
 namespace Decryption.Models {
     internal class XORDecryptionAlgorithm : DecryptionAlgorithmBase {
         public event EventHandler KeyChanged;
-        private readonly IEncryptedText encryptedText;
-        private readonly ITextChecker textChecker;
+        private readonly IText encryptedText;
+        private readonly ITextHelper textChecker;
         private readonly IXORKeyFinderFactory xorKeyFinderFactory;
 
         private byte LowerKeyBound { get; set; }
@@ -40,8 +40,8 @@ namespace Decryption.Models {
         }
 
         public XORDecryptionAlgorithm(
-            IEncryptedText encryptedText,
-            ITextChecker textChecker,
+            IText encryptedText,
+            ITextHelper textChecker,
             IXORKeyFinderFactory xorKeyFinderFactory,
             params byte[] key) {
             this.encryptedText = encryptedText;
