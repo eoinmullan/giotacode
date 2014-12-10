@@ -9,7 +9,7 @@ using Decryption.Interfaces;
 using Decryption.Models;
 
 namespace Decryption.ViewModels {
-    public class CaesarShiftSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
+    internal class CaesarShiftSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
         private CaesarShiftDecryptionAlgorithm algorithm;
         private IEncryptedText encryptedText;
         public ICommand ShiftUpCommand { get; private set; }

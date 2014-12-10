@@ -9,7 +9,7 @@ using Decryption.Interfaces;
 using Decryption.Models;
 
 namespace Decryption.ViewModels {
-    public class XORSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
+    internal class XORSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
         private readonly XORDecryptionAlgorithm algorithm;
         private readonly IEncryptedText encryptedText;
         public ICommand FindKeyCommand { get; private set; }

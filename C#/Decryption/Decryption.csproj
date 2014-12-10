@@ -61,6 +61,7 @@
     <Compile Include="Interfaces\ITextChecker.cs" />
     <Compile Include="Interfaces\IXORKeyFinder.cs" />
     <Compile Include="Interfaces\IXORKeyFinderFactory.cs" />
+    <Compile Include="Models\DecryptionAlgorithmBase.cs" />
     <Compile Include="ViewModels\CaesarShiftSetupViewModel.cs" />
     <Compile Include="ViewModels\DecrypterViewModel.cs" />
     <Compile Include="Common\ModelBase.cs" />

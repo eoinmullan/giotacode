@@ -12,8 +12,7 @@ using Decryption.Interfaces;
 using Decryption.ViewModels;
 
 namespace Decryption.Models {
-    public class XORDecryptionAlgorithm : ModelBase, IDecryptionAlgorithm {
-        public event EventHandler EncryptionChanged;
+    internal class XORDecryptionAlgorithm : DecryptionAlgorithmBase {
         public event EventHandler KeyChanged;
         private readonly IEncryptedText encryptedText;
         private readonly ITextChecker textChecker;
@@ -51,7 +50,7 @@ namespace Decryption.Models {
             Key = key;
         }
 
-        public string DecryptText(string encryptedText) {
+        public override string DecryptText(string encryptedText) {
             if (encryptedText == null || encryptedText.Equals(string.Empty)) {
                 return string.Empty;
             }
@@ -79,12 +78,6 @@ namespace Decryption.Models {
         private void RaiseKeyChanged() {
             if (KeyChanged != null) {
                 KeyChanged(this, new EventArgs());
-            }
-        }
-
-        private void RaiseEncryptionChanged() {
-            if (EncryptionChanged != null) {
-                EncryptionChanged(this, new EventArgs());
             }
         }
     }

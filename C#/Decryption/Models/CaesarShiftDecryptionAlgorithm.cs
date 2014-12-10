@@ -7,9 +7,7 @@ using Decryption.Interfaces;
 using System.ComponentModel;
 
 namespace Decryption.Models {
-    public class CaesarShiftDecryptionAlgorithm : IDecryptionAlgorithm {
-        public event EventHandler EncryptionChanged;
-
+    internal class CaesarShiftDecryptionAlgorithm : DecryptionAlgorithmBase {
         private int key;
         public int Key {
             get {
@@ -17,9 +15,7 @@ namespace Decryption.Models {
             }
             set {
                 key = value;
-                if (EncryptionChanged != null) {
-                    EncryptionChanged(this, new EventArgs());
-                }
+                RaiseEncryptionChanged();
             }
         }
 
@@ -30,7 +26,7 @@ namespace Decryption.Models {
             Key = key;
         }
 
-        public string DecryptText(string encryptedText) {
+        public override string DecryptText(string encryptedText) {
             if (encryptedText == null || encryptedText.Equals(string.Empty)) {
                 return string.Empty;
             }

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Decryption.Interfaces;
+using Decryption.Models;
 
 namespace Decryption.Models {
-    internal class MonoAlphaSubDecryptionAlgorithm : IDecryptionAlgorithm {
-        public event EventHandler EncryptionChanged;
-
+    internal class MonoAlphaSubDecryptionAlgorithm : DecryptionAlgorithmBase {
         IDictionary<char, char> pairs;
 
         public MonoAlphaSubDecryptionAlgorithm() {
@@ -26,7 +24,7 @@ namespace Decryption.Models {
             RaiseEncryptionChanged();
         }
 
-        public string DecryptText(string encryptedText) {
+        public override string DecryptText(string encryptedText) {
             return String.Concat(encryptedText.Select(x => SubstuteOrReplaceWithQuestionMark(x)));
         }
 
@@ -40,12 +38,6 @@ namespace Decryption.Models {
 
         public override string ToString() {
             return "MonoAlpha";
-        }
-
-        private void RaiseEncryptionChanged() {
-            if (EncryptionChanged != null) {
-                EncryptionChanged(this, new EventArgs());
-            }
         }
     }
 }
