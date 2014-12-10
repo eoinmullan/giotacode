@@ -51,7 +51,7 @@ namespace DecryptionUnitTests {
 
         [TestMethod]
         public void ShouldReturnCorrectNameOnToString() {
-            Assert.AreEqual("Mono Alpha", target.ToString());
+            Assert.AreEqual("MonoAlpha", target.ToString());
         }
     }
 }

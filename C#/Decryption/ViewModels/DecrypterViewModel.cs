@@ -11,8 +11,6 @@ using Decryption.Common;
 
 namespace Decryption.ViewModels {
     internal class DecrypterViewModel : ModelBase {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private IEncryptedText encryptedText;
         public string EncryptedText {
             get {

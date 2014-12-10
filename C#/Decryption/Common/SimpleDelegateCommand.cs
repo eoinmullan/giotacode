@@ -28,5 +28,10 @@ namespace Decryption.Common {
         }
 
         public event EventHandler CanExecuteChanged;
+
+        protected void OnCanExecuteChanged() {
+            if (this.CanExecuteChanged != null)
+                this.CanExecuteChanged(this, new EventArgs());
+        }
     }
 }
