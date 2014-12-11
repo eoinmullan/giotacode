@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Decryption.Models;
 
 namespace Decryption.Models {
-    internal class MonoAlphaSubDecryptionAlgorithm : DecryptionAlgorithmBase {
+    internal class MonoAlphaSubDecrypter : DecrypterBase {
         IDictionary<char, char> pairs;
 
-        public MonoAlphaSubDecryptionAlgorithm() {
+        public MonoAlphaSubDecrypter() {
             pairs = new Dictionary<char, char>();
         }
 

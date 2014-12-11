@@ -4,12 +4,12 @@ using Decryption.Models;
 
 namespace DecryptionUnitTests {
     [TestClass]
-    public class MonoAlphaSubDecryptionAlgorithmUnitTest {
-        private MonoAlphaSubDecryptionAlgorithm target;
+    public class MonoAlphaSubDecrypterUnitTest {
+        private MonoAlphaSubDecrypter target;
 
         [TestInitialize]
         public void Initialize() {
-            target = new MonoAlphaSubDecryptionAlgorithm();
+            target = new MonoAlphaSubDecrypter();
         }
 
         [TestMethod]
@@ -52,6 +52,16 @@ namespace DecryptionUnitTests {
         [TestMethod]
         public void ShouldReturnCorrectNameOnToString() {
             Assert.AreEqual("MonoAlpha", target.ToString());
+        }
+        
+        [TestMethod]
+        public void ShouldRaiseEncryptionChangedWhenSubstitutionPairLoaded() {
+            var encryptionChangedRaised = false;
+            target.EncryptionChanged += (s, e) => encryptionChangedRaised = true;
+
+            target.LoadSubstitutionPair('a', 'b');
+
+            Assert.IsTrue(encryptionChangedRaised);
         }
     }
 }
