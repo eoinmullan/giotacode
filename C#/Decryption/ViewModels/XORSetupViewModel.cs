@@ -9,18 +9,18 @@ using Decryption.Interfaces;
 using Decryption.Models;
 
 namespace Decryption.ViewModels {
-    internal class XORSetupViewModel : ModelBase, IDecryptionAlgorithmViewModel {
-        private readonly XORDecryptionAlgorithm algorithm;
-        private readonly IText encryptedText;
+    internal class XORSetupViewModel : ModelBase, IDecryptionSetupViewModel {
+        private readonly IXORDecrypter decrypter;
+        private readonly IObservableText encryptedText;
         public ICommand FindKeyCommand { get; private set; }
         public ICommand LoadSampleTextCommand { get; private set; }
 
-        public XORSetupViewModel(XORDecryptionAlgorithm algorithm, IText encryptedText) {
-            this.algorithm = algorithm;
+        public XORSetupViewModel(IXORDecrypter decrypter, IObservableText encryptedText) {
+            this.decrypter = decrypter;
             this.encryptedText = encryptedText;
             FindKeyCommand = new SimpleDelegateCommand(FindKey);
             LoadSampleTextCommand = new SimpleDelegateCommand(LoadSampleText);
-            algorithm.KeyChanged += HandleKeyChanged;
+            decrypter.KeyChanged += HandleKeyChanged;
             KeyAutoSearchLowerBound = 97;
             KeyAutoSearchUpperBound = 122;
             WordsToFind = string.Empty;
@@ -32,17 +32,16 @@ namespace Decryption.ViewModels {
 
         public string Key {
             get {
-                return ASCIIEncoding.ASCII.GetString(algorithm.Key);
+                return ASCIIEncoding.ASCII.GetString(decrypter.Key);
             }
             set {
-                algorithm.Key = Encoding.ASCII.GetBytes(value);
-                OnPropertyChanged("Key");
+                decrypter.Key = Encoding.ASCII.GetBytes(value);
             }
         }
 
         public string Name {
             get {
-                return algorithm.ToString();
+                return decrypter.ToString();
             }
         }
 
@@ -51,7 +50,7 @@ namespace Decryption.ViewModels {
         public string WordsToFind { get; set; }
 
         private void FindKey() {
-            algorithm.FindKey(KeyAutoSearchLowerBound, KeyAutoSearchUpperBound, WordsToFind.Replace(" ", string.Empty).Split(','));
+            decrypter.FindKey(KeyAutoSearchLowerBound, KeyAutoSearchUpperBound, WordsToFind.Replace(" ", string.Empty).Split(','));
         }
 
         private void LoadSampleText() {

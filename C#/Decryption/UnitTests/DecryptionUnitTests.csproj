@@ -53,13 +53,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CaesarShiftDecryptionAlgorithmUnitTest.cs" />
-    <Compile Include="EncryptedTextUnitTest.cs" />
-    <Compile Include="MonoAlphaSubDecryptionAlgorithmUnitTest.cs" />
+    <Compile Include="CaesarShiftDecrypterUnitTest.cs" />
+    <Compile Include="CaesarShiftSetupViewModelUnitTest.cs" />
+    <Compile Include="DecryptedTextUnitTest.cs" />
+    <Compile Include="DecrypterViewModelUnitTest.cs" />
+    <Compile Include="ObservableTextUnitTest.cs" />
+    <Compile Include="MonoAlphaSubDecrypterUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextCheckerUnitTest.cs" />
-    <Compile Include="XORDecryptionAlgorithmUnitTest.cs" />
+    <Compile Include="TextHelperUnitTest.cs" />
+    <Compile Include="XORDecrypterUnitTest.cs" />
     <Compile Include="XORKeyFinderUnitTest.cs" />
+    <Compile Include="XORSetupViewModelUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Decryption.csproj">

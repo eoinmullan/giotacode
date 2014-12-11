@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Decryption.Interfaces {
-    internal interface IDecryptionAlgorithm {
-        event EventHandler EncryptionChanged;
+    public interface IObservableText {
+        event EventHandler TextChanged;
 
-        string DecryptText(string encryptedText);
+        string Text { get; set; }
     }
 }

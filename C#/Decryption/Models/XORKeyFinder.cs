@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Decryption.Interfaces;
 
 namespace Decryption.Models {
-    public class XORKeyFinder : IXORKeyFinder {
-        private readonly IText encryptedText;
+    internal class XORKeyFinder : IXORKeyFinder {
+        private readonly IObservableText encryptedText;
         private readonly ITextHelper textChecker;
         private readonly byte lowerKeyBound;
         private readonly byte upperKeyBound;
         private readonly string[] wordsToFind;
 
-        public XORKeyFinder(IText encryptedText, ITextHelper textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind) {
+        public XORKeyFinder(IObservableText encryptedText, ITextHelper textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind) {
             this.encryptedText = encryptedText;
             this.textChecker = textChecker;
             this.lowerKeyBound = lowerKeyBound;

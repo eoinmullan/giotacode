@@ -7,7 +7,9 @@ using Decryption.Common;
 using Decryption.Interfaces;
 
 namespace Decryption.Models {
-    public class EncryptedText : ModelBase, IText {
+    internal class ObservableText : IObservableText {
+        public event EventHandler TextChanged;
+
         private string text;
         public string Text {
             get {
@@ -15,8 +17,13 @@ namespace Decryption.Models {
             }
             set {
                 text = value;
-                OnPropertyChanged("Text");
+                OnTextChanged();
             }
+        }
+
+        protected void OnTextChanged() {
+            if (this.TextChanged != null)
+                this.TextChanged(this, new EventArgs());
         }
     }
 }

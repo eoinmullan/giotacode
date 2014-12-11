@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Decryption.Interfaces {
     public interface IXORKeyFinderFactory {
-        IXORKeyFinder Create(IText encryptedText, ITextHelper textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind);
+        IXORKeyFinder Create(IObservableText encryptedText, ITextHelper textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind);
     }
 }

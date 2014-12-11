@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Decryption.Interfaces;
 
 namespace Decryption.Models {
-    internal abstract class DecryptionAlgorithmBase : IDecryptionAlgorithm {
+    internal abstract class DecrypterBase : IDecrypter {
         public event EventHandler EncryptionChanged;
 
         public abstract string DecryptText(string encryptedText);

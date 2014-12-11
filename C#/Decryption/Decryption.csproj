@@ -53,16 +53,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\SelectedDecryptionAlgorithmToVisiblityConverter.cs" />
+    <Compile Include="Common\SelectedDecrypterToVisiblityConverter.cs" />
     <Compile Include="Common\SimpleDelegateCommand.cs" />
     <Compile Include="Common\TextChecker.cs" />
     <Compile Include="Common\XORKeyFinderFactory.cs" />
-    <Compile Include="Interfaces\IDecryptionAlgorithmViewModel.cs" />
-    <Compile Include="Interfaces\ITextChecker.cs" />
+    <Compile Include="Interfaces\ICaesarShiftDecrypter.cs" />
+    <Compile Include="Interfaces\IDecryptedText.cs" />
+    <Compile Include="Interfaces\IDecryptionSetupViewModel.cs" />
+    <Compile Include="Interfaces\ITextHelper.cs" />
+    <Compile Include="Interfaces\IXORDecrypter.cs" />
     <Compile Include="Interfaces\IXORKeyFinder.cs" />
     <Compile Include="Interfaces\IXORKeyFinderFactory.cs" />
     <Compile Include="Models\DecryptedText.cs" />
-    <Compile Include="Models\DecryptionAlgorithmBase.cs" />
+    <Compile Include="Models\DecrypterBase.cs" />
     <Compile Include="ViewModels\CaesarShiftSetupViewModel.cs" />
     <Compile Include="ViewModels\DecrypterViewModel.cs" />
     <Compile Include="Common\ModelBase.cs" />
@@ -82,8 +85,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\IDecryptionAlgorithm.cs" />
-    <Compile Include="Interfaces\IEncryptedText.cs" />
+    <Compile Include="Interfaces\IDecrypter.cs" />
+    <Compile Include="Interfaces\IObservableText.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -98,10 +101,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CaesarShiftDecryptionAlgorithm.cs" />
-    <Compile Include="Models\EncryptedText.cs" />
-    <Compile Include="Models\MonoAlphaSubDecryptionAlgorithm.cs" />
-    <Compile Include="Models\XORDecryptionAlgorithm.cs" />
+    <Compile Include="Models\CaesarShiftDecrypter.cs" />
+    <Compile Include="Models\ObservableText.cs" />
+    <Compile Include="Models\MonoAlphaSubDecrypter.cs" />
+    <Compile Include="Models\XORDecrypter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

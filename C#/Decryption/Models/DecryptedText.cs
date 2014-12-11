@@ -7,16 +7,32 @@ using Decryption.Common;
 using Decryption.Interfaces;
 
 namespace Decryption.Models {
-    public class DecryptedText : ModelBase, IText {
-        private string text;
-        public string Text {
+    internal class DecryptedText : ObservableText, IDecryptedText {
+        private IObservableText encryptedText;
+
+        private IDecrypter currentDecrypter;
+        public IDecrypter CurrentDecrypter {
             get {
-                return text;
+                return currentDecrypter;
             }
             set {
-                text = value;
-                OnPropertyChanged("Text");
+                currentDecrypter = value;
+                currentDecrypter.EncryptionChanged += HandleEncryptedTextChanged;
+                UpdateDecryptedText();
             }
+        }
+
+        public DecryptedText(IObservableText encryptedText) {
+            this.encryptedText = encryptedText;
+            encryptedText.TextChanged += HandleEncryptedTextChanged;
+        }
+
+        void HandleEncryptedTextChanged(object sender, EventArgs e) {
+            UpdateDecryptedText();
+        }
+
+        private void UpdateDecryptedText() {
+            Text = CurrentDecrypter.DecryptText(encryptedText.Text);
         }
     }
 }

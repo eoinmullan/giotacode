@@ -7,23 +7,23 @@ using Decryption.Interfaces;
 using System.ComponentModel;
 
 namespace Decryption.Models {
-    internal class CaesarShiftDecryptionAlgorithm : DecryptionAlgorithmBase {
-        private int key;
-        public int Key {
+    internal class CaesarShiftDecrypter : DecrypterBase, ICaesarShiftDecrypter {
+        private int shift;
+        public int Shift {
             get {
-                return key;
+                return shift;
             }
             set {
-                key = value;
+                shift = value;
                 RaiseEncryptionChanged();
             }
         }
 
-        public CaesarShiftDecryptionAlgorithm() : this(0) { 
+        public CaesarShiftDecrypter() : this(0) { 
         }
 
-        public CaesarShiftDecryptionAlgorithm(int key) {
-            Key = key;
+        public CaesarShiftDecrypter(int key) {
+            Shift = key;
         }
 
         public override string DecryptText(string encryptedText) {
@@ -36,10 +36,10 @@ namespace Decryption.Models {
 
         private char ShiftCharacter(char character) {
             if (char.IsUpper(character)) {
-                return (char)(((character - 'A' + Key) % 26) + 'A');
+                return (char)(((character - 'A' + Shift) % 26) + 'A');
             }
             else if (char.IsLower(character)) {
-                return (char)(((character - 'a' + Key) % 26) + 'a');
+                return (char)(((character - 'a' + Shift) % 26) + 'a');
             }
 
             return character;

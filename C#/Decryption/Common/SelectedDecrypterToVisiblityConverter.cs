@@ -9,9 +9,8 @@ using System.Globalization;
 using System.Diagnostics;
 
 namespace Decryption.Common {
-    public class SelectedDecryptionAlgorithmToVisiblityConverter : IValueConverter {
+    public class SelectedDecrypterToVisiblityConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            Debug.WriteLine("Value: " + value as string + ". Parameter: " + parameter as string + ".");
             return value as string == parameter as string ? Visibility.Visible : Visibility.Hidden;
         }
 

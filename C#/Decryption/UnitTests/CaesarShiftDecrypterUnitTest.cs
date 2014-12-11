@@ -4,12 +4,12 @@ using Decryption.Models;
 
 namespace DecryptionUnitTests {
     [TestClass]
-    public class CaesarShiftDecryptionAlgorithmUnitTest {
-        private CaesarShiftDecryptionAlgorithm target;
+    public class CaesarShiftDecrypterUnitTest {
+        private CaesarShiftDecrypter target;
 
         [TestInitialize]
         public void Initialize() {
-            target = new CaesarShiftDecryptionAlgorithm();
+            target = new CaesarShiftDecrypter();
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace DecryptionUnitTests {
 
         [TestMethod]
         public void ShouldShiftBy16CharactersWordsRespectingCase() {
-            target.Key = 16;
+            target.Shift = 16;
             var encryptedWords = "AesMu LbYgx PyH TeWZc yFob dro VkJI Nyq".Split(' ');
             var decryptedWords = "QuiCk BrOwn FoX JuMPs oVer the LaZY Dog".Split(' ');
 
@@ -42,7 +42,7 @@ namespace DecryptionUnitTests {
 
         [TestMethod]
         public void ShouldShiftMessageWhileLeavingPuntuationIntact() {
-            target.Key = 16;
+            target.Shift = 16;
             var encryptedSentence = "Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q";
             var decryptedSentence = "Qui.Ck B?rOwn F<oX> Ju(MPs) oVer! t££he L;a:ZY D]o[g";
 
@@ -51,7 +51,7 @@ namespace DecryptionUnitTests {
 
         [TestMethod]
         public void ShouldUseKeySuppliedInConstructor() {
-            var newTarget = new CaesarShiftDecryptionAlgorithm(16);
+            var newTarget = new CaesarShiftDecrypter(16);
             var encryptedSentence = "AesMu LbYgx PyH TeWZc yFob dro VkJI Nyq";
             var decryptedSentence = "QuiCk BrOwn FoX JuMPs oVer the LaZY Dog";
 
@@ -61,6 +61,16 @@ namespace DecryptionUnitTests {
         [TestMethod]
         public void ShouldReturnCorrectNameOnToString() {
             Assert.AreEqual("Caesar", target.ToString());
+        }
+
+        [TestMethod]
+        public void ShouldRaiseEncryptionChangedWhenShiftValueIsChanged() {
+            var encryptionChangedRaised = false;
+            target.EncryptionChanged += (s, e) => encryptionChangedRaised = true;
+
+            target.Shift = 4;
+
+            Assert.IsTrue(encryptionChangedRaised);
         }
     }
 }

@@ -4,12 +4,12 @@ using Decryption.Models;
 
 namespace DecryptionUnitTests {
     [TestClass]
-    public class EncryptedTextUnitTest {
-        EncryptedText target;
+    public class ObservableTextUnitTest {
+        ObservableText target;
 
         [TestInitialize]
         public void Initialize() {
-            target = new EncryptedText();
+            target = new ObservableText();
         }
 
         [TestMethod]

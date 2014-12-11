@@ -8,20 +8,20 @@ using Rhino.Mocks;
 
 namespace DecryptionUnitTests {
     [TestClass]
-    public class XORDecryptionAlgorithmUnitTest {
-        private XORDecryptionAlgorithm target;
+    public class XORDecrypterUnitTest {
+        private XORDecrypter target;
 
-        private IText encryptedText;
+        private IObservableText encryptedText;
         private ITextHelper textChecker;
         private IXORKeyFinderFactory xorKeyFinderFactory;
 
         [TestInitialize]
         public void Initialize() {
-            encryptedText = MockRepository.GenerateMock<IText>();
+            encryptedText = MockRepository.GenerateMock<IObservableText>();
             textChecker = MockRepository.GenerateMock<ITextHelper>();
             xorKeyFinderFactory = MockRepository.GenerateMock<IXORKeyFinderFactory>();
 
-            target = new XORDecryptionAlgorithm(encryptedText, textChecker, xorKeyFinderFactory);
+            target = new XORDecrypter(encryptedText, textChecker, xorKeyFinderFactory);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace DecryptionUnitTests {
 
         [TestMethod]
         public void ShouldUseKeySuppliedInConstructor() {
-            var newTarget = new XORDecryptionAlgorithm(encryptedText, textChecker, xorKeyFinderFactory, new byte[] { 23, 32, 42, 200, 219 });
+            var newTarget = new XORDecrypter(encryptedText, textChecker, xorKeyFinderFactory, new byte[] { 23, 32, 42, 200, 219 });
 
             Assert.AreEqual("Secret Message", newTarget.DecryptText("68,69,73,186,190,99,0,103,173,168,100,65,77,173"));
         }
@@ -84,6 +84,19 @@ namespace DecryptionUnitTests {
 
             Assert.AreEqual(Decryption.Properties.Resources.InvalidInput, target.DecryptText("Non ASCII code message"));
             Assert.AreEqual(Decryption.Properties.Resources.InvalidInput, target.DecryptText("107,a107,107,107,107"));
+        }
+
+        [TestMethod]
+        public void ShouldRaiseEncryptionAndKeyChangedWhenKeyChanged() {
+            var encryptionChangedRaised = false;
+            var keyChangedRaised = false;
+            target.EncryptionChanged += (s, e) => encryptionChangedRaised = true;
+            target.KeyChanged += (s, e) => keyChangedRaised = true;
+
+            SetTargetKey(42, 43, 44);
+
+            Assert.IsTrue(encryptionChangedRaised);
+            Assert.IsTrue(keyChangedRaised);
         }
 
         private void SetTargetKey(params byte[] keyValues) {

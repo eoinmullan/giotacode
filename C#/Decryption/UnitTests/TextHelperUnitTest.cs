@@ -4,10 +4,10 @@ using Decryption.Common;
 
 namespace DecryptionUnitTests {
     [TestClass]
-    public class TextCheckerUnitTest {
+    public class TextHelperUnitTest {
         private TextHelper target;
 
-        private string testText = "Fiddle tune call the band simple melancholy melody";
+        private string testText = "Fiddle tune, call the band, simple melancholy melody";
 
         [TestInitialize]
         public void Initialize() {

@@ -7,8 +7,8 @@ using Decryption.Interfaces;
 using Decryption.Models;
 
 namespace Decryption.Common {
-    public class XORKeyFinderFactory : IXORKeyFinderFactory {
-        public IXORKeyFinder Create(IText encryptedText, ITextHelper textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind) {
+    internal class XORKeyFinderFactory : IXORKeyFinderFactory {
+        public IXORKeyFinder Create(IObservableText encryptedText, ITextHelper textChecker, byte lowerKeyBound, byte upperKeyBound, params string[] wordsToFind) {
             return new XORKeyFinder(encryptedText, textChecker, lowerKeyBound, upperKeyBound, wordsToFind);
         }
     }

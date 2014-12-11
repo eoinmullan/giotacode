@@ -12,10 +12,10 @@ using Decryption.Interfaces;
 using Decryption.ViewModels;
 
 namespace Decryption.Models {
-    internal class XORDecryptionAlgorithm : DecryptionAlgorithmBase {
+    internal class XORDecrypter : DecrypterBase, IXORDecrypter {
         public event EventHandler KeyChanged;
-        private readonly IText encryptedText;
-        private readonly ITextHelper textChecker;
+        private readonly IObservableText encryptedText;
+        private readonly ITextHelper textHelper;
         private readonly IXORKeyFinderFactory xorKeyFinderFactory;
 
         private byte LowerKeyBound { get; set; }
@@ -39,13 +39,13 @@ namespace Decryption.Models {
             }
         }
 
-        public XORDecryptionAlgorithm(
-            IText encryptedText,
+        public XORDecrypter(
+            IObservableText encryptedText,
             ITextHelper textChecker,
             IXORKeyFinderFactory xorKeyFinderFactory,
             params byte[] key) {
             this.encryptedText = encryptedText;
-            this.textChecker = textChecker;
+            this.textHelper = textChecker;
             this.xorKeyFinderFactory = xorKeyFinderFactory;
             Key = key;
         }
@@ -67,7 +67,7 @@ namespace Decryption.Models {
         }
 
         public async void FindKey(byte lowerBound, byte upperBound, params string[] wordsToFind) {
-            var xorKeyFinder = xorKeyFinderFactory.Create(encryptedText, textChecker, lowerBound, upperBound, wordsToFind);
+            var xorKeyFinder = xorKeyFinderFactory.Create(encryptedText, textHelper, lowerBound, upperBound, wordsToFind);
             Key = await xorKeyFinder.FindNextKeyAsync(key, DecryptText, x => Key = x);
         }
 

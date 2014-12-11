@@ -11,7 +11,8 @@ using Decryption.Common;
 
 namespace Decryption.ViewModels {
     internal class DecrypterViewModel : ModelBase {
-        private IText encryptedText;
+        private IObservableText encryptedText;
+        private IDecryptedText decryptedText;
         public string EncryptedText {
             get {
                 return encryptedText.Text;
@@ -19,78 +20,79 @@ namespace Decryption.ViewModels {
             set {
                 encryptedText.Text = value;
                 OnPropertyChanged("EncryptedText");
-                OnPropertyChanged("DecryptedText");
             }
         }
 
         public string DecryptedText {
             get {
-                return DecryptionAlgorithm.DecryptText(EncryptedText);
+                return CurrentDecrypter.DecryptText(EncryptedText);
             }
         }
 
-        public List<IDecryptionAlgorithm> DecryptionAlgorithms { get; private set; }
-        public List<IDecryptionAlgorithmViewModel> DecryptionAlgorithmViewModels { get; private set; }
+        public List<IDecrypter> Decrypters { get; private set; }
+        public List<IDecryptionSetupViewModel> DecrypterViewModels { get; private set; }
 
-        private IDecryptionAlgorithm decryptionAlgorithm;
-        public IDecryptionAlgorithm DecryptionAlgorithm {
+        private IDecrypter currentDecrypter;
+        public IDecrypter CurrentDecrypter {
             get {
-                return decryptionAlgorithm;
+                return currentDecrypter;
             }
             set {
-                decryptionAlgorithm.EncryptionChanged -= HandleEncryptionChanged;
-                decryptionAlgorithm = value;
-                SetViewModel(decryptionAlgorithm);
+                currentDecrypter = value;
+                decryptedText.CurrentDecrypter = value;
+                OnPropertyChanged("CurrentDecrypter");
+                SetCorrespondingViewModel(currentDecrypter);
             }
         }
 
-        private IDecryptionAlgorithmViewModel decryptionAlgorithmViewModel;
-        public IDecryptionAlgorithmViewModel DecryptionAlgorithmViewModel {
+        private IDecryptionSetupViewModel currentDecrypterViewModel;
+        public IDecryptionSetupViewModel CurrentDecrypterViewModel {
             get {
-                return decryptionAlgorithmViewModel;
+                return currentDecrypterViewModel;
             }
             set {
-                decryptionAlgorithmViewModel = value;
-                OnPropertyChanged("DecryptionAlgorithmViewModel");
-                OnPropertyChanged("DecryptedText");
+                currentDecrypterViewModel = value;
+                OnPropertyChanged("CurrentDecrypterViewModel");
             }
         }
 
         public string ActiveAlgorithmName {
             get {
-                return DecryptionAlgorithm.ToString();
+                return CurrentDecrypter.ToString();
             }
         }
 
-        public DecrypterViewModel(IText encryptedText, params Tuple<IDecryptionAlgorithm, IDecryptionAlgorithmViewModel>[] decryptionAlgorithmsVMPairs) {
+        public DecrypterViewModel(IObservableText encryptedText, IDecryptedText decryptedText, params Tuple<IDecrypter, IDecryptionSetupViewModel>[] decryptionAlgorithmsVMPairs) {
             this.encryptedText = encryptedText;
-            DecryptionAlgorithms = new List<IDecryptionAlgorithm>();
-            DecryptionAlgorithmViewModels = new List<IDecryptionAlgorithmViewModel>();
+            this.decryptedText = decryptedText;
+            encryptedText.TextChanged += HandleEncryptedTextChanged;
+            decryptedText.TextChanged += HandleDecryptedTextChanged;
+            InitialiseDecryptersAndViewModels(decryptionAlgorithmsVMPairs);
+        }
+
+        private void InitialiseDecryptersAndViewModels(Tuple<IDecrypter, IDecryptionSetupViewModel>[] decryptionAlgorithmsVMPairs) {
+            Decrypters = new List<IDecrypter>();
+            DecrypterViewModels = new List<IDecryptionSetupViewModel>();
             foreach (var decryptionAlgorithmVMPair in decryptionAlgorithmsVMPairs) {
-                DecryptionAlgorithms.Add(decryptionAlgorithmVMPair.Item1);
-                DecryptionAlgorithmViewModels.Add(decryptionAlgorithmVMPair.Item2);
+                Decrypters.Add(decryptionAlgorithmVMPair.Item1);
+                DecrypterViewModels.Add(decryptionAlgorithmVMPair.Item2);
             }
 
-            encryptedText.PropertyChanged += encryptedText_PropertyChanged;
-            decryptionAlgorithm = DecryptionAlgorithms[0];
-            decryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[0];
-            decryptionAlgorithm.EncryptionChanged += HandleEncryptionChanged;
+            CurrentDecrypter = Decrypters[0];
+            CurrentDecrypterViewModel = DecrypterViewModels[0];
         }
 
-        private void encryptedText_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (e.PropertyName == "Text") {
-                OnPropertyChanged("EncryptedText");
-            }
+        private void HandleEncryptedTextChanged(object sender, EventArgs e) {
+            OnPropertyChanged("EncryptedText");
         }
 
-        private void SetViewModel(IDecryptionAlgorithm decryptionAlgorithm) {
-            var decryptionAlgorithmIndex = DecryptionAlgorithms.FindIndex(x => x == decryptionAlgorithm);
-            DecryptionAlgorithmViewModel = DecryptionAlgorithmViewModels[decryptionAlgorithmIndex];
-            DecryptionAlgorithm.EncryptionChanged += HandleEncryptionChanged;
-        }
-
-        private void HandleEncryptionChanged(object sender, EventArgs e) {
+        private void HandleDecryptedTextChanged(object sender, EventArgs e) {
             OnPropertyChanged("DecryptedText");
+        }
+
+        private void SetCorrespondingViewModel(IDecrypter decryptionAlgorithm) {
+            var decryptionAlgorithmIndex = Decrypters.FindIndex(x => x == decryptionAlgorithm);
+            CurrentDecrypterViewModel = DecrypterViewModels[decryptionAlgorithmIndex];
         }
     }
 }
