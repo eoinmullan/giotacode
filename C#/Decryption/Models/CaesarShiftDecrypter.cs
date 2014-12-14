@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using Decryption.Interfaces;
-using System.ComponentModel;
 
 namespace Decryption.Models {
     internal class CaesarShiftDecrypter : DecrypterBase, ICaesarShiftDecrypter {
@@ -27,22 +27,7 @@ namespace Decryption.Models {
         }
 
         public override string DecryptText(string encryptedText) {
-            if (encryptedText == null || encryptedText.Equals(string.Empty)) {
-                return string.Empty;
-            }
-
-            return String.Concat(encryptedText.Select(x => ShiftCharacter(x)));
-        }
-
-        private char ShiftCharacter(char character) {
-            if (char.IsUpper(character)) {
-                return (char)(((character - 'A' + Shift) % 26) + 'A');
-            }
-            else if (char.IsLower(character)) {
-                return (char)(((character - 'a' + Shift) % 26) + 'a');
-            }
-
-            return character;
+            return Algorithms.Algorithms.CaesarShiftDecryption(Shift, encryptedText);
         }
 
         public override string ToString() {

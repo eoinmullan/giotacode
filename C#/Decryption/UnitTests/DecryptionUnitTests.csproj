@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CaesarShiftAlgorithmUnitTest.cs" />
     <Compile Include="CaesarShiftDecrypterUnitTest.cs" />
     <Compile Include="CaesarShiftSetupViewModelUnitTest.cs" />
     <Compile Include="DecryptedTextUnitTest.cs" />
