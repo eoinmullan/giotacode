@@ -14,6 +14,22 @@ namespace Decryption.Algorithms {
             return String.Concat(encryptedText.Select(x => CaesarShiftCharacter(shift, x)));
         }
 
+        public static string XORDecryption(string encryptedText, params byte[] key) {
+            if (encryptedText == null || encryptedText.Equals(string.Empty)) {
+                return string.Empty;
+            }
+
+            if (!IsEncryptedTextValidForXORDecryption(encryptedText)) {
+                return Properties.Resources.InvalidInput;
+            }
+
+            if (key.Count() == 0) {
+                key = new byte[] { 0 };
+            }
+
+            return String.Concat(encryptedText.Split(',').Where(x => !x.Equals(string.Empty)).Select((x, i) => (char)(Int32.Parse(x) ^ key[i % key.Length])));
+        }
+
         private static char CaesarShiftCharacter(int shift, char character) {
             if (char.IsUpper(character)) {
                 return (char)(((character - 'A' + shift) % 26) + 'A');
@@ -23,6 +39,10 @@ namespace Decryption.Algorithms {
             }
 
             return character;
+        }
+
+        private static bool IsEncryptedTextValidForXORDecryption(string text) {
+            return text.All(x => Char.IsDigit(x) || x == ',');
         }
     }
 }

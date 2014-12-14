@@ -27,12 +27,7 @@ namespace Decryption.Models {
                 return key;
             }
             set {
-                if (value.Count() == 0) {
-                    key = new byte[] { 0 };
-                }
-                else {
-                    key = value;
-                }
+                key = value;
 
                 RaiseKeyChanged();
                 RaiseEncryptionChanged();
@@ -51,15 +46,7 @@ namespace Decryption.Models {
         }
 
         public override string DecryptText(string encryptedText) {
-            if (encryptedText == null || encryptedText.Equals(string.Empty)) {
-                return string.Empty;
-            }
-
-            if (!IsEncryptedTextValid(encryptedText)) {
-                return Properties.Resources.InvalidInput;
-            }
-
-            return String.Concat(encryptedText.Split(',').Where(x => !x.Equals(string.Empty)).Select((x, i) => (char)(Int32.Parse(x) ^ Key[i % Key.Length])));
+            return Algorithms.Algorithms.XORDecryption(encryptedText, key);
         }
 
         public override string ToString() {
@@ -69,10 +56,6 @@ namespace Decryption.Models {
         public async void FindKey(byte lowerBound, byte upperBound, params string[] wordsToFind) {
             var xorKeyFinder = xorKeyFinderFactory.Create(encryptedText, textHelper, lowerBound, upperBound, wordsToFind);
             Key = await xorKeyFinder.FindNextKeyAsync(key, DecryptText, x => Key = x);
-        }
-
-        private bool IsEncryptedTextValid(string text) {
-            return text.All(x => Char.IsDigit(x) || x == ',');
         }
 
         private void RaiseKeyChanged() {
