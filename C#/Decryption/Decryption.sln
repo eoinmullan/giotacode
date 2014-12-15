@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decryption", "Decryption.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecryptionUnitTests", "UnitTests\DecryptionUnitTests.csproj", "{7FA85683-F656-43EA-ACC7-0D29601534EA}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DecryptionFs", "..\DecryptionFs\DecryptionFs.fsproj", "{437C63B7-AC53-4249-91D3-41CBB5F9DE07}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DecryptionFs", "DecryptionFs\DecryptionFs.fsproj", "{437C63B7-AC53-4249-91D3-41CBB5F9DE07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

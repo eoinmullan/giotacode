@@ -68,7 +68,7 @@
     <Compile Include="XORSetupViewModelUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DecryptionFs\DecryptionFs.fsproj">
+    <ProjectReference Include="..\DecryptionFs\DecryptionFs.fsproj">
       <Project>{437c63b7-ac53-4249-91d3-41cbb5f9de07}</Project>
       <Name>DecryptionFs</Name>
     </ProjectReference>
