@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using Decryption.Interfaces;
+using DecryptionFs;
 
 namespace Decryption.Models {
     internal class CaesarShiftDecrypter : DecrypterBase, ICaesarShiftDecrypter {
@@ -27,7 +28,7 @@ namespace Decryption.Models {
         }
 
         public override string DecryptText(string encryptedText) {
-            return Algorithms.Algorithms.CaesarShiftDecryption(encryptedText, Shift);
+            return AlgorithmsFs.CaesarShiftDecryption(encryptedText, Shift);
         }
 
         public override string ToString() {

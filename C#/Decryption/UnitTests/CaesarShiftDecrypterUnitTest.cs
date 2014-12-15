@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Decryption.Algorithms;
 using Decryption.Models;
+using DecryptionFs;
 
 namespace DecryptionUnitTests {
     [TestClass]
@@ -34,7 +34,7 @@ namespace DecryptionUnitTests {
 
             Assert.AreEqual(
                 target.DecryptText("Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q"),
-                Algorithms.CaesarShiftDecryption("Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q", 16)
+                AlgorithmsFs.CaesarShiftDecryption("Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q", 16)
             );
         }
     }
