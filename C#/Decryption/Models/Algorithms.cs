@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Decryption.Algorithms {
     public static class Algorithms {
-        public static string CaesarShiftDecryption(int shift, string encryptedText) {
+        public static string CaesarShiftDecryption(string encryptedText, int shift)
+        {
             if (encryptedText == null || encryptedText.Equals(string.Empty)) {
                 return string.Empty;
             }
 
-            return String.Concat(encryptedText.Select(x => CaesarShiftCharacter(shift, x)));
+            return String.Concat(encryptedText.Select(x => CaesarShiftCharacter(x, shift)));
         }
 
         public static string XORDecryption(string encryptedText, params byte[] key) {
@@ -30,7 +31,7 @@ namespace Decryption.Algorithms {
             return String.Concat(encryptedText.Split(',').Where(x => !x.Equals(string.Empty)).Select((x, i) => (char)(Int32.Parse(x) ^ key[i % key.Length])));
         }
 
-        private static char CaesarShiftCharacter(int shift, char character) {
+        private static char CaesarShiftCharacter(char character, int shift) {
             if (char.IsUpper(character)) {
                 return (char)(((character - 'A' + shift) % 26) + 'A');
             }

@@ -27,7 +27,7 @@ namespace Decryption.Models {
         }
 
         public override string DecryptText(string encryptedText) {
-            return Algorithms.Algorithms.CaesarShiftDecryption(Shift, encryptedText);
+            return Algorithms.Algorithms.CaesarShiftDecryption(encryptedText, Shift);
         }
 
         public override string ToString() {

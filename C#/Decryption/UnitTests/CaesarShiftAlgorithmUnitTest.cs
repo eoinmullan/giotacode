@@ -9,19 +9,19 @@ namespace DecryptionUnitTests {
 
         [TestMethod]
         public void ShouldHandleEmptyStringInput() {
-            Assert.AreEqual("", Algorithms.CaesarShiftDecryption(0, ""));
+            Assert.AreEqual("", Algorithms.CaesarShiftDecryption("", 0));
         }
 
         [TestMethod]
         public void ShouldHandleNullStringInput() {
-            Assert.AreEqual("", Algorithms.CaesarShiftDecryption(0, null));
+            Assert.AreEqual("", Algorithms.CaesarShiftDecryption(null, 0));
         }
 
         [TestMethod]
         public void ShouldReturnEncryptedTextUnchangedWhenZeroKeyIsUsed() {
             var testSentence = "The Quick Brown Fox Jumped Over The Lazy Dog.";
 
-            Assert.AreEqual(testSentence, Algorithms.CaesarShiftDecryption(0, testSentence));
+            Assert.AreEqual(testSentence, Algorithms.CaesarShiftDecryption(testSentence, 0));
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace DecryptionUnitTests {
             var encryptedSentence = "AesMu LbYgx PyH TeWZc yFob dro VkJI Nyq";
             var expectedDecryptedSentence = "QuiCk BrOwn FoX JuMPs oVer the LaZY Dog";
 
-            Assert.AreEqual(expectedDecryptedSentence, Algorithms.CaesarShiftDecryption(16, encryptedSentence));
+            Assert.AreEqual(expectedDecryptedSentence, Algorithms.CaesarShiftDecryption(encryptedSentence, 16));
         }
 
         [TestMethod]
@@ -37,7 +37,7 @@ namespace DecryptionUnitTests {
             var encryptedSentence = "Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q";
             var expectedDecryptedSentence = "Qui.Ck B?rOwn F<oX> Ju(MPs) oVer! t££he L;a:ZY D]o[g";
 
-            Assert.AreEqual(expectedDecryptedSentence, Algorithms.CaesarShiftDecryption(16, encryptedSentence));
+            Assert.AreEqual(expectedDecryptedSentence, Algorithms.CaesarShiftDecryption(encryptedSentence, 16));
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace DecryptionUnitTests {
             var encryptedSentence = "AesMu LbYgx PyH TeWZc yFob dro VkJI Nyq";
             var expectedDecryptedSentence = "QuiCk BrOwn FoX JuMPs oVer the LaZY Dog";
 
-            Assert.AreEqual(expectedDecryptedSentence, Algorithms.CaesarShiftDecryption(16, encryptedSentence));
+            Assert.AreEqual(expectedDecryptedSentence, Algorithms.CaesarShiftDecryption(encryptedSentence, 16));
         }
     }
 }

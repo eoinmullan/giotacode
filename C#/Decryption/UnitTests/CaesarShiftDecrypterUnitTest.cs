@@ -34,7 +34,7 @@ namespace DecryptionUnitTests {
 
             Assert.AreEqual(
                 target.DecryptText("Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q"),
-                Algorithms.CaesarShiftDecryption(16, "Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q")
+                Algorithms.CaesarShiftDecryption("Aes.Mu L?bYgx P<yH> Te(WZc) yFob! d££ro V;k:JI N]y[q", 16)
             );
         }
     }
