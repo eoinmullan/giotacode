@@ -70,6 +70,7 @@
     <Compile Include="ViewModels\CaesarShiftSetupViewModel.cs" />
     <Compile Include="ViewModels\DecrypterViewModel.cs" />
     <Compile Include="Common\ModelBase.cs" />
+    <Compile Include="ViewModels\MockDecrypterViewModel.cs" />
     <Compile Include="ViewModels\XORSetupViewModel.cs" />
     <Compile Include="Views\CaesarShiftSetupView.xaml.cs">
       <DependentUpon>CaesarShiftSetupView.xaml</DependentUpon>
