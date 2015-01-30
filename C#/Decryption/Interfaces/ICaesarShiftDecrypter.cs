@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Decryption.Interfaces {
-    public interface ICaesarShiftDecrypter {
+    public interface ICaesarShiftDecrypter : IDecrypter {
         int Shift { get; set; }
     }
 }

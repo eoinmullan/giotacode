@@ -80,7 +80,7 @@ namespace DecryptionUnitTests {
             textChecker.Expect(x => x.ContainsAll(null)).IgnoreArguments().Return(false).Repeat.Times(numKeysToTry - 1);
             textChecker.Expect(x => x.ContainsAll(null)).IgnoreArguments().Return(true).Repeat.Once();
 
-            await target.FindNextKeyAsync(initialKey, x => x, StoreKeysTriedInList);
+            await target.FindNextKeyAsync(initialKey, x => x, y => { });
 
             textChecker.VerifyAllExpectations();
         }

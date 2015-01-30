@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Decryption.Interfaces {
-    public interface IXORDecrypter {
+    public interface IXORDecrypter : IDecrypter {
         event EventHandler KeyChanged;
 
         byte[] Key { get; set; }

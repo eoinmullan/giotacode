@@ -27,11 +27,12 @@ namespace Decryption.Models {
                     return;
                 }
 
-                IncrementKey(ref key, updateKeyTried);
-                var test = decrypt(encryptedText.Text);
-                while (!textChecker.ContainsAll(decrypt(encryptedText.Text), wordsToFind)) {
-                    IncrementKey(ref key, updateKeyTried);
-                }
+                string keyTriedResult;
+                do {
+                    key = IncrementKey(key);
+                    keyTriedResult = decrypt(encryptedText.Text);
+                    updateKeyTried(key);
+                } while (!textChecker.ContainsAll(keyTriedResult, wordsToFind));
             });
 
             return key;
@@ -41,7 +42,7 @@ namespace Decryption.Models {
             return key.Count() > 0 && key.All(x => x >= lowerKeyBound && x <= upperKeyBound);
         }
 
-        private void IncrementKey(ref byte[] key, Action<byte[]> updateKeyTried) {
+        private byte[] IncrementKey(byte[] key) {
             for (var i = key.Count()-1; i >= 0; i--) {
                 if (key[i] < upperKeyBound) {
                     key[i]++;
@@ -52,7 +53,7 @@ namespace Decryption.Models {
                 }
             }
 
-            updateKeyTried(key);
+            return key;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Decryption.ViewModels {
 
         public string DecryptedText {
             get {
-                return CurrentDecrypter.DecryptText(EncryptedText);
+                return decryptedText.Text;
             }
         }
 
@@ -65,8 +65,8 @@ namespace Decryption.ViewModels {
         public DecrypterViewModel(IObservableText encryptedText, IDecryptedText decryptedText, params Tuple<IDecrypter, IDecryptionSetupViewModel>[] decryptionAlgorithmsVMPairs) {
             this.encryptedText = encryptedText;
             this.decryptedText = decryptedText;
-            encryptedText.TextChanged += HandleEncryptedTextChanged;
-            decryptedText.TextChanged += HandleDecryptedTextChanged;
+            encryptedText.TextChanged += (s, e) => OnPropertyChanged("EncryptedText");
+            decryptedText.TextChanged += (s, e) => OnPropertyChanged("DecryptedText");
             InitialiseDecryptersAndViewModels(decryptionAlgorithmsVMPairs);
         }
 
@@ -80,14 +80,6 @@ namespace Decryption.ViewModels {
 
             CurrentDecrypter = Decrypters[0];
             CurrentDecrypterViewModel = DecrypterViewModels[0];
-        }
-
-        private void HandleEncryptedTextChanged(object sender, EventArgs e) {
-            OnPropertyChanged("EncryptedText");
-        }
-
-        private void HandleDecryptedTextChanged(object sender, EventArgs e) {
-            OnPropertyChanged("DecryptedText");
         }
 
         private void SetCorrespondingViewModel(IDecrypter decryptionAlgorithm) {
