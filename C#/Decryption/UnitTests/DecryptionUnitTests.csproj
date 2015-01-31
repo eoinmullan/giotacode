@@ -58,8 +58,9 @@
     <Compile Include="CaesarShiftSetupViewModelUnitTest.cs" />
     <Compile Include="DecryptedTextUnitTest.cs" />
     <Compile Include="DecrypterViewModelUnitTest.cs" />
+    <Compile Include="MonoAlphaAlgorithmUnitTest.cs" />
     <Compile Include="ObservableTextUnitTest.cs" />
-    <Compile Include="MonoAlphaSubDecrypterUnitTest.cs" />
+    <Compile Include="MonoAlphaDecrypterUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextHelperUnitTest.cs" />
     <Compile Include="XORAlgorithmUnitTest.cs" />

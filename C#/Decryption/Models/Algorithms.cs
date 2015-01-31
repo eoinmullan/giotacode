@@ -31,6 +31,19 @@ namespace Decryption.Algorithms {
             return String.Concat(encryptedText.Split(',').Where(x => !x.Equals(string.Empty)).Select((x, i) => (char)(Int32.Parse(x) ^ key[i % key.Length])));
         }
 
+        public static string MonoAlphaDecryption(string encryptedText, IDictionary<char, char> substitutionPairs) {
+            if (encryptedText == null || encryptedText.Equals(string.Empty)) {
+                return string.Empty;
+            }
+
+            return String.Concat(encryptedText.Select(c => {
+                if (substitutionPairs.ContainsKey(c)) {
+                    return substitutionPairs[c];
+                }
+                return '?';
+            }));
+        }
+
         private static char CaesarShiftCharacter(char character, int shift) {
             if (char.IsUpper(character)) {
                 return (char)(((character - 'A' + shift) % 26) + 'A');

@@ -71,9 +71,14 @@
     <Compile Include="ViewModels\DecrypterViewModel.cs" />
     <Compile Include="Common\ModelBase.cs" />
     <Compile Include="ViewModels\MockDecrypterViewModel.cs" />
+    <Compile Include="ViewModels\MockMonoAlphaSetupViewModel.cs" />
+    <Compile Include="ViewModels\MonoAlphaSetupViewModel.cs" />
     <Compile Include="ViewModels\XORSetupViewModel.cs" />
     <Compile Include="Views\CaesarShiftSetupView.xaml.cs">
       <DependentUpon>CaesarShiftSetupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MonoAlphaSetupView.xaml.cs">
+      <DependentUpon>MonoAlphaSetupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\XORSetupView.xaml.cs">
       <DependentUpon>XORSetupView.xaml</DependentUpon>
@@ -97,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MonoAlphaSetupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\XORSetupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,7 +114,7 @@
   <ItemGroup>
     <Compile Include="Models\CaesarShiftDecrypter.cs" />
     <Compile Include="Models\ObservableText.cs" />
-    <Compile Include="Models\MonoAlphaSubDecrypter.cs" />
+    <Compile Include="Models\MonoAlphaDecrypter.cs" />
     <Compile Include="Models\XORDecrypter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

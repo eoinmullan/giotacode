@@ -29,7 +29,7 @@
             <ListBox ItemsSource="{Binding Decrypters}" Name="MyListBox"
                      SelectedItem="{Binding CurrentDecrypter}"
                      Margin="0,10">
-                <ListBox.Resources>
+                    <ListBox.Resources>
                     <ControlTemplate x:Key="ListBoxItem" TargetType="ListBoxItem">
                         <StackPanel>
                             <ContentPresenter/>
@@ -61,6 +61,8 @@
                                           Visibility="{Binding Name, Converter={StaticResource selectedDecrypterToVisiblityConverter}, ConverterParameter=Caesar}" />
                 <loc:XORSetupView DataContext="{Binding CurrentDecrypterViewModel, Mode=TwoWay}"
                                   Visibility="{Binding Name, Converter={StaticResource selectedDecrypterToVisiblityConverter}, ConverterParameter=XOR}" />
+                <loc:MonoAlphaSetupView DataContext="{Binding CurrentDecrypterViewModel, Mode=TwoWay}"
+                                  Visibility="{Binding Name, Converter={StaticResource selectedDecrypterToVisiblityConverter}, ConverterParameter=MonoAlpha}" />
             </Grid>
         </Grid>
         <Grid Grid.Row="1">

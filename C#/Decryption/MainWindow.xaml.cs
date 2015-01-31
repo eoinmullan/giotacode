@@ -29,17 +29,19 @@ namespace Decryption {
             IDecryptedText decryptedText = new DecryptedText(encryptedText);
             ITextHelper textChecker = new TextHelper();
             IXORKeyFinderFactory xorKeyFinderFactory = new XORKeyFinderFactory();
-            IDecrypter caesarShiftAlgorithm = new CaesarShiftDecrypter();
-            IDecryptionSetupViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm as ICaesarShiftDecrypter, encryptedText);
-            IDecrypter xorAlgorithm = new XORDecrypter(encryptedText, textChecker, xorKeyFinderFactory);
-            IDecryptionSetupViewModel xorViewModel = new XORSetupViewModel(xorAlgorithm as IXORDecrypter, encryptedText);
-            IDecrypter monoAlphaAlgorithm = new MonoAlphaSubDecrypter();
+            ICaesarShiftDecrypter caesarShiftAlgorithm = new CaesarShiftDecrypter();
+            IDecryptionSetupViewModel caesarShiftViemModel = new CaesarShiftSetupViewModel(caesarShiftAlgorithm, encryptedText);
+            IXORDecrypter xorAlgorithm = new XORDecrypter(encryptedText, textChecker, xorKeyFinderFactory);
+            IDecryptionSetupViewModel xorViewModel = new XORSetupViewModel(xorAlgorithm, encryptedText);
+            IDecrypter monoAlphaAlgorithm = new MonoAlphaDecrypter();
+            IDecryptionSetupViewModel monoAlphaViewModel = new MonoAlphaSetupViewModel(monoAlphaAlgorithm);
 
             DataContext = new DecrypterViewModel(
                 encryptedText,
                 decryptedText,
-                Tuple.Create(caesarShiftAlgorithm, caesarShiftViemModel),
-                Tuple.Create(xorAlgorithm, xorViewModel));
+                Tuple.Create<IDecrypter, IDecryptionSetupViewModel>(caesarShiftAlgorithm, caesarShiftViemModel),
+                Tuple.Create<IDecrypter, IDecryptionSetupViewModel>(xorAlgorithm, xorViewModel),
+                Tuple.Create<IDecrypter, IDecryptionSetupViewModel>(monoAlphaAlgorithm, monoAlphaViewModel));
         }
     }
 }

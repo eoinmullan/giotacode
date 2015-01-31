@@ -15,21 +15,22 @@ namespace Decryption.ViewModels {
             }
         }
 
-        private IXORDecrypter xorDecrypter;
-        private IDecryptionSetupViewModel xorDecrypterViewModel;
+        private IDecrypter monoAlphaDecrypter;
+        private IDecryptionSetupViewModel monoAlphaDecrypterViewModel;
         public IDecryptionSetupViewModel CurrentDecrypterViewModel {
             get {
-                return xorDecrypterViewModel;
+                return monoAlphaDecrypterViewModel;
             }
             set { }
         }
 
         public MockDecrypterViewModel() {
-            xorDecrypter = new XORDecrypter(null, null, null);
-            xorDecrypterViewModel = new XORSetupViewModel(xorDecrypter, null);
+            monoAlphaDecrypter = new MonoAlphaDecrypter();
+            monoAlphaDecrypterViewModel = new MonoAlphaSetupViewModel(monoAlphaDecrypter);
             decrypters = new List<IDecrypter>() {
                 new CaesarShiftDecrypter(),
-                xorDecrypter
+                new XORDecrypter(null, null, null),
+                monoAlphaDecrypter
             };
         }
     }
