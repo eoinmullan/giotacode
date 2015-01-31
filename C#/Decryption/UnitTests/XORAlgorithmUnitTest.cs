@@ -29,6 +29,11 @@ namespace DecryptionUnitTests {
         }
 
         [TestMethod]
+        public void ShouldHandleNullString() {
+            Assert.AreEqual("", Algorithms.XORDecryption(null));
+        }
+
+        [TestMethod]
         public void ShouldConvert65TokWhenKeyIs43() {
             Assert.AreEqual("jjjjj", Algorithms.XORDecryption("65,65,65,65,65", 43));
         }

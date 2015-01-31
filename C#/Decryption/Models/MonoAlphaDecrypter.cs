@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Decryption.Models;
 
 namespace Decryption.Models {
-    internal class MonoAlphaSubDecrypter : DecrypterBase {
+    internal class MonoAlphaDecrypter : DecrypterBase {
         IDictionary<char, char> pairs;
 
-        public MonoAlphaSubDecrypter() {
-            pairs = new Dictionary<char, char>();
+        public MonoAlphaDecrypter() {
+            pairs = new Dictionary<char, char> { { ' ', ' ' } };
         }
 
         public void LoadSubstitutionPair(char find, char replace) {
@@ -25,15 +25,7 @@ namespace Decryption.Models {
         }
 
         public override string DecryptText(string encryptedText) {
-            return String.Concat(encryptedText.Select(x => SubstuteOrReplaceWithQuestionMark(x)));
-        }
-
-        private char SubstuteOrReplaceWithQuestionMark(char c) {
-            if (pairs.ContainsKey(c)) {
-                return pairs[c];
-            }
-
-            return '?';
+            return Algorithms.Algorithms.MonoAlphaDecryption(encryptedText, pairs);
         }
 
         public override string ToString() {
