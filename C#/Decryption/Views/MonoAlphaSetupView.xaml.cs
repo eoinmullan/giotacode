@@ -18,10 +18,8 @@ namespace Decryption.Views
     /// <summary>
     /// Interaction logic for MonoAlphaSetupView.xaml
     /// </summary>
-    public partial class MonoAlphaSetupView : UserControl
-    {
-        public MonoAlphaSetupView()
-        {
+    public partial class MonoAlphaSetupView : UserControl {
+        public MonoAlphaSetupView() {
             InitializeComponent();
         }
     }

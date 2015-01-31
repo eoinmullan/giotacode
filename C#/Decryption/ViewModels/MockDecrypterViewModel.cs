@@ -26,7 +26,7 @@ namespace Decryption.ViewModels {
 
         public MockDecrypterViewModel() {
             monoAlphaDecrypter = new MonoAlphaDecrypter();
-            monoAlphaDecrypterViewModel = new MonoAlphaSetupViewModel(monoAlphaDecrypter);
+            monoAlphaDecrypterViewModel = new MonoAlphaSetupViewModel(monoAlphaDecrypter, null);
             decrypters = new List<IDecrypter>() {
                 new CaesarShiftDecrypter(),
                 new XORDecrypter(null, null, null),

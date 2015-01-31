@@ -34,7 +34,7 @@ namespace Decryption {
             IXORDecrypter xorAlgorithm = new XORDecrypter(encryptedText, textChecker, xorKeyFinderFactory);
             IDecryptionSetupViewModel xorViewModel = new XORSetupViewModel(xorAlgorithm, encryptedText);
             IDecrypter monoAlphaAlgorithm = new MonoAlphaDecrypter();
-            IDecryptionSetupViewModel monoAlphaViewModel = new MonoAlphaSetupViewModel(monoAlphaAlgorithm);
+            IDecryptionSetupViewModel monoAlphaViewModel = new MonoAlphaSetupViewModel(monoAlphaAlgorithm, encryptedText);
 
             DataContext = new DecrypterViewModel(
                 encryptedText,
