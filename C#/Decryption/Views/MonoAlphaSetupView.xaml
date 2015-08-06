@@ -9,10 +9,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Button Content="Load sample" Height="30" Command="{Binding LoadSampleTextCommand}" Margin="15,0" />
+        <Button Content="Load sample" Height="30" Width="80" Command="{Binding LoadSampleTextCommand}" Margin="15,0" />
         <ItemsControl ItemsSource="{Binding InputCharacterSet}" Grid.Column="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -22,9 +22,13 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Label Height="30" Width="20" Content="{Binding}"/>
-                        <Label Height="30" Width="20" Content=":"/>
-                        <TextBox Height="30" Width="20" />
+                        <StackPanel Orientation="Horizontal" Width="60">
+                            <TextBlock Height="25" Margin="0,5,0,0" Text="{Binding Path=Key}" />
+                            <TextBlock Height="25" Margin="0,5,0,0" Text=" ("/>
+                            <TextBlock Height="25" Margin="0,5,0,0" Text="{Binding Path=Value, StringFormat=N2}" />
+                            <TextBlock Height="25" Margin="0,5,0,0" Text="%) : "/>
+                        </StackPanel>
+                        <TextBox Height="25" Width="20" Margin="5,5,15,5" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

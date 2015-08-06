@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vms:MockDecrypterViewModel, IsDesignTimeCreatable=True}"
-        Title="MainWindow" Height="350" Width="630" Background="PaleGreen">
+        Title="MainWindow" Height="600" Width="800" Background="PaleGreen">
     
     <Window.Resources>
         <common:SelectedDecrypterToVisiblityConverter x:Key="selectedDecrypterToVisiblityConverter" />

@@ -59,6 +59,7 @@
     <Compile Include="DecryptedTextUnitTest.cs" />
     <Compile Include="DecrypterViewModelUnitTest.cs" />
     <Compile Include="MonoAlphaAlgorithmUnitTest.cs" />
+    <Compile Include="MonoAlphaSetupViewModelUnitTest.cs" />
     <Compile Include="ObservableTextUnitTest.cs" />
     <Compile Include="MonoAlphaDecrypterUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
